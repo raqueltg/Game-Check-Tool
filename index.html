@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Game-check | Videogame assessment</title>
+  <title>Game-check v0.8 | Videogame assessment</title>
   <style>
 *{box-sizing:border-box}
-:root{--ink:#242a27;--muted:#707a74;--line:#e4e7e4;--paper:#fff;--bg:#f5f6f4;--accent:#53665b;--accent-soft:#edf1ed;--accent-dark:#394b40;--amber:#8a6a31;--red:#985454;--shadow:0 8px 24px rgba(28,39,32,.045)}
+:root{--ink:#242a27;--muted:#707a74;--line:#e4e7e4;--paper:#fff;--bg:#f5f6f4;--accent:#53665b;--accent-soft:#edf1ed;--accent-dark:#394b40;--amber:#647b91;--red:#647b91;--shadow:0 8px 24px rgba(28,39,32,.045)}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
 button,input,select,textarea{font:inherit}
@@ -19,13 +19,71 @@ button,input,select,textarea{font:inherit}
 .sidebar-bottom{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}.current-game{font-weight:650;padding:0 10px 12px;overflow-wrap:anywhere;font-size:13px}.content{min-width:0;max-width:1000px;width:100%;margin:0 auto}
 .page-heading{display:flex;align-items:flex-end;justify-content:space-between;margin:7px 2px 22px;gap:15px}.page-heading h2{font-size:30px;line-height:1.2;letter-spacing:-.9px;margin:5px 0 7px;font-weight:700}.page-heading p{margin:0;color:var(--muted);font-size:14px}.page-heading .eyebrow{color:#87938b}.step-chip{font-size:12px;color:#657168;background:#fff;border:1px solid var(--line);padding:7px 12px;border-radius:20px;white-space:nowrap}
 .view{display:none}.view.active{display:block}.panel{background:#fff;border:1px solid var(--line);border-radius:13px;padding:27px;margin-bottom:18px;box-shadow:var(--shadow)}.panel-heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}.panel h3{font-size:17px;margin:0 0 4px;font-weight:700}.panel-heading p{color:var(--muted);margin:0;font-size:13px}.panel-icon{width:36px;height:36px;border-radius:9px;background:#f0f2ef;color:#68766c;display:grid;place-items:center;font-size:18px}
+
+
+.criterion-info{position:relative;display:inline-flex;vertical-align:middle;margin-left:6px;align-items:center;justify-content:center;width:18px;height:18px;box-sizing:border-box;padding:0;border:1px solid #9aa8b5;border-radius:50%;font-family:Arial,sans-serif;font-size:11px;font-weight:700;line-height:18px;text-align:center;color:#53677c;background:#edf1f5;cursor:help;flex:0 0 auto}
+.criterion-info .criterion-tooltip{position:absolute;left:0;top:auto;bottom:calc(100% + 8px);width:290px;max-width:75vw;padding:11px 13px;border-radius:8px;background:#263746;color:#fff;font-size:12px;font-weight:450;line-height:1.5;box-shadow:0 5px 18px #0002;opacity:0;visibility:hidden;pointer-events:none;z-index:35}
+.criterion-info:hover .criterion-tooltip,.criterion-info:focus .criterion-tooltip{opacity:1;visibility:visible}
+
+.m03-always-visible{margin:0 0 16px;padding:12px 14px;border:1px solid #dce4eb;border-left:3px solid #879bad;border-radius:8px;background:#f4f7fa;color:#405466;font-size:12px;line-height:1.55}
+.m03-always-visible strong{font-weight:750}
+.m03-always-visible p{margin:5px 0 0}
+
+.structured-followup[hidden]{display:none!important}
+.structured-followup{grid-column:1/-1;padding:13px;border:1px solid #dfe5e9;border-radius:9px;background:#f7f9fb;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.structured-followup .wide{grid-column:1/-1}
+.structured-followup p{grid-column:1/-1;margin:0;color:#596b7b;font-size:12px;line-height:1.5}
+.structured-followup label{font-size:12px}
+
+.info-tip{position:relative;display:inline-flex;vertical-align:middle;align-self:center;margin-left:5px;align-items:center;justify-content:center;width:18px;height:18px;box-sizing:border-box;padding:0;border:1px solid #9aa8b5;border-radius:50%;font-family:Arial,sans-serif;font-size:11px;font-weight:700;line-height:18px;text-align:center;color:#53677c;background:#edf1f5;cursor:help;flex:0 0 auto}
+.info-tip .tooltip-content{position:absolute;left:50%;bottom:calc(100% + 9px);transform:translateX(-50%);width:260px;max-width:min(260px,75vw);padding:10px 12px;border-radius:8px;background:#263746;color:#fff;font-size:12px;font-weight:450;line-height:1.45;white-space:normal;text-align:left;box-shadow:0 5px 18px #0002;opacity:0;visibility:hidden;pointer-events:none;z-index:30}
+.info-tip:hover .tooltip-content,.info-tip:focus .tooltip-content,.info-tip:focus-within .tooltip-content{opacity:1;visibility:visible}
+.info-tip .tooltip-content ul{margin:5px 0 0;padding-left:17px}
+.info-tip .tooltip-content li{margin:2px 0}
+
+.question-label{display:inline;line-height:1.4}
+.question-label .info-tip{display:inline-block;margin-left:7px;vertical-align:middle}
+.supportive-overview{display:flex;align-items:center;gap:20px;padding:14px 16px;margin:8px 0 16px;background:#f0f6f3;border:1px solid #d8e8df;border-radius:10px}.supportive-total{display:flex;align-items:baseline;gap:7px;white-space:nowrap}.supportive-total-number{font-size:28px;font-weight:750;color:#28684d}.supportive-total-label{font-size:13px;color:#52675b}.supportive-progress-area{flex:1;min-width:100px}.supportive-progress-track{height:10px;background:#dce8e1;border-radius:99px;overflow:hidden}.supportive-progress-fill{height:100%;background:#5b9878;border-radius:99px}.supportive-progress-caption{font-size:11px;color:#63766a;margin-top:6px}.supportive-results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.supportive-dialog{width:min(760px,calc(100% - 28px));max-height:min(80vh,760px);overflow:auto;border:1px solid #dce7e0;border-radius:14px;padding:22px;box-shadow:0 18px 55px #1d2b382e}.supportive-dialog::backdrop{background:#17253288}.supportive-dialog .dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:16px}.supportive-dialog .dialog-head h3{margin:0 0 5px}.supportive-dialog .dialog-head p{margin:0;font-size:12px}.supportive-dialog .supportive-overview{margin:16px 0}.supportive-dialog .supportive-results-grid{margin-top:16px}.supportive-dialog-footer{display:flex;justify-content:flex-end;margin-top:18px}@media(max-width:650px){.supportive-results-grid{grid-template-columns:1fr}.supportive-dialog{padding:16px}}.supportive-result-card{padding:12px 14px;border:1px solid #dce9e1;border-left:4px solid #6d9f82;border-radius:8px;background:#fbfdfb;display:flex;flex-direction:column;gap:7px}.supportive-card-top{display:flex;align-items:center;gap:7px}.supportive-check{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;background:#e0efe5;color:#28684d;font-size:12px;font-weight:800}.supportive-id{font-size:11px;font-weight:750;letter-spacing:.06em;color:#617568}.supportive-status{margin-left:auto;font-size:10px;font-weight:700;color:#28684d;background:#e8f3ec;padding:3px 7px;border-radius:99px}.supportive-result-card strong{font-size:13px;line-height:1.4}.supportive-result-card p{margin:0;font-size:12px;line-height:1.45;color:#64756b}@media(max-width:650px){.supportive-overview{align-items:flex-start;flex-direction:column;gap:10px}.supportive-progress-area{width:100%}.supportive-results-grid{grid-template-columns:1fr}}
+.compare-nav{margin-top:12px;border-top:1px solid var(--line);border-radius:0;padding-top:15px;color:var(--accent-dark);font-weight:700}.compare-nav.active{border-radius:8px}.compare-selectors{display:grid;grid-template-columns:1fr 1fr;gap:16px}.compare-note{font-size:12px;margin:12px 0 0}.compare-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.compare-summary-card{border:1px solid #e0e6e9;border-radius:10px;padding:16px;min-width:0}.compare-summary-card h4{font-size:16px;margin:9px 0}.compare-big-number{font-size:30px;font-weight:800;color:#344a58;margin-top:12px}.compare-summary-card p{font-size:12px;color:#71808a;margin:2px 0 12px}.compare-game-tag{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:#e9eef2;color:#405766;font-size:11px;font-weight:800}.compare-classification{font-size:12px;color:#64727c;padding-top:10px;border-top:1px solid #edf0f2}.compare-legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:#5d6b75;margin:12px 0}.compare-categories{display:grid;gap:13px}.compare-category-card{border:1px solid #e1e7ea;border-radius:10px;padding:14px}.compare-category-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.compare-category-heading h4{margin:0;font-size:14px}.compare-category-heading span{font-size:11px;color:#71808a}.compare-status-row{display:grid;grid-template-columns:115px minmax(0,1fr);gap:12px;align-items:center;padding:7px 0;border-top:1px solid #f0f2f3}.compare-status-name{display:flex;align-items:center;gap:7px;font-size:12px;color:#53616b}.compare-dual-bars{display:grid;gap:6px}.compare-bar-line{display:grid;grid-template-columns:20px minmax(50px,1fr) 38px;gap:7px;align-items:center}.compare-bar-line strong{font-size:11px;text-align:right;color:#53616b}.compare-track{height:9px;background:#eef1f3;border-radius:99px;overflow:hidden}.compare-track div{height:100%;border-radius:99px}.compare-supportive-line{font-size:11px;color:#667680;margin-top:12px;padding-top:10px;border-top:1px solid #edf0f2}.compare-rationales{display:grid;grid-template-columns:1fr 1fr;gap:14px}.compare-rationales article{background:#f8fafb;border:1px solid #e1e7ea;border-radius:9px;padding:14px}.compare-rationales h4{margin:0 0 8px;font-size:14px}.compare-rationales p{font-size:12px;line-height:1.5;color:#5d6b75;overflow-wrap:anywhere}@media(max-width:760px){.compare-selectors,.compare-summary-grid,.compare-rationales{grid-template-columns:1fr}.compare-status-row{grid-template-columns:1fr;gap:6px}}
+.radar-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(240px,.9fr);gap:18px;align-items:center}.radar-chart{min-width:0;text-align:center}.radar-chart svg{width:100%;max-width:430px;height:auto;display:block;margin:0 auto}.radar-legend{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;font-size:12px;color:#53616b}.radar-legend span{display:flex;align-items:center;gap:6px}.radar-dot{width:10px;height:10px;border-radius:50%;display:inline-block}.radar-values{display:grid;gap:10px}.radar-values h4{margin:0 0 3px;font-size:14px}.radar-value-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #edf0f2}.radar-value-row strong{font-size:12px;color:#465762}.radar-value-row div{display:grid;gap:2px;text-align:right}.radar-value-row span{font-size:17px;font-weight:750}.radar-value-row small{font-size:10px;color:#77858e}.radar-value-a{color:#b84d4d}.radar-value-b{color:#3f8058}/* Clear, grouped comparison tables */
+.compare-table-wrap{display:grid;gap:18px;overflow:visible}
+.compare-category-block{border:1px solid #e3e9ed;border-radius:10px;overflow:hidden;background:#fff}
+.compare-category-title{margin:0;padding:12px 15px;background:#f1f5f7;color:#405563;font-size:13px}
+.compare-data-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:12px}
+.compare-data-table th,.compare-data-table td{padding:11px 14px;border-bottom:1px solid #e9edef;text-align:left;vertical-align:middle}
+.compare-data-table thead th{background:#f8fafb;color:#53616b;font-size:11px;font-weight:700}
+.compare-data-table thead th:first-child{width:27%}
+.compare-game-heading{display:flex;flex-direction:column;gap:4px;white-space:normal}
+.compare-game-heading strong{font-size:12px;color:#344653}
+.compare-game-heading small{font-size:10px;line-height:1.35;color:#78858e;font-weight:400;overflow-wrap:anywhere}
+.compare-game-heading .game-a,.compare-game-heading .game-b{display:inline-flex;align-self:flex-start;padding:3px 7px;border-radius:5px;font-size:10px;font-weight:750}
+.compare-data-table tbody tr:last-child td{border-bottom:0}
+.compare-data-table tbody tr:nth-child(even){background:#fcfdfd}
+.compare-response-label{display:flex;align-items:center;gap:8px;font-weight:650}
+.compare-response-label i{width:9px;height:9px;border-radius:3px;display:inline-block;flex:0 0 9px}
+.compare-response-value{font-weight:700;color:#344653}
+.compare-percent{display:block;color:#78858e;font-size:10px;margin-top:2px}
+.compare-supportive{margin-top:16px;padding:14px 16px;border:1px solid #e3e9ed;border-radius:10px;background:#fbfcfc}
+.compare-supportive h4{margin:0 0 5px;font-size:13px;color:#405563}
+.compare-supportive p{margin:0 0 12px;font-size:11px;line-height:1.45;color:#73818a}
+.compare-supportive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.compare-supportive-card{padding:11px 12px;border:1px solid #e6ecef;border-radius:8px;background:#fff;min-width:0}
+.compare-supportive-card strong{display:block;font-size:11px;color:#596873;margin-bottom:5px}
+.compare-supportive-card span{font-size:17px;font-weight:750;color:#344653}
+.compare-supportive-card small{font-size:10px;color:#78858e;margin-left:5px}
+.game-a{background:#e8f1fb;color:#2865a4}.game-b{background:#fff0df;color:#a85d12}
+@media(max-width:650px){.compare-data-table th,.compare-data-table td{padding:9px 8px}.compare-data-table thead th:first-child{width:24%}.compare-supportive-grid{grid-template-columns:1fr}.compare-game-heading small{font-size:9px}}@media(max-width:760px){.radar-layout{grid-template-columns:1fr}.radar-value-row{grid-template-columns:1fr auto auto}}
+.review-dialog{width:min(620px,calc(100% - 32px));max-width:620px;border:1px solid #dce3e7;border-radius:14px;padding:22px;box-shadow:0 18px 55px #1d2b382e}.review-dialog::backdrop{background:#17253288}.review-progress{display:grid;gap:8px;margin:14px 0 20px;font-size:12px;color:#687783;font-weight:650}.review-progress-track{height:7px;border-radius:99px;background:#edf1f3;overflow:hidden}.review-progress-track div{height:100%;width:0;background:#71899b;border-radius:99px;transition:width .2s}.review-question{padding:18px;border:1px solid #e0e6e9;border-radius:10px;background:#f8fafb}.review-domain{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#70808d;font-weight:750}.review-id{font-size:11px;color:#7b8992;margin-top:8px}.review-question h4{font-size:18px;line-height:1.4;margin:5px 0 8px}.review-question p{font-size:13px;line-height:1.5;color:#5d6c77;margin:0}.review-hint{font-size:12px;margin:14px 0}.review-actions{display:flex;gap:10px;flex-wrap:wrap}.review-actions .button{flex:1;min-width:100px;padding:11px}.yes-review{background:#e8f3eb;border:1px solid #4f9468;color:#28613d}.no-review{background:#f8eaea;border:1px solid #c66b6b;color:#923b3b}.unclear-review{background:#fff1df;border:1px solid #d69a45;color:#895713}.review-existing-info{margin-top:12px;padding:10px;background:#fff;border-radius:7px;border:1px solid #e5e9ec}.review-existing-info strong{font-size:11px}.review-existing-info p{margin-top:4px}
+.response-overview-layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);gap:16px;align-items:start;margin-top:14px}.response-table-wrap{min-width:0}.overall-response-pie{height:100%;box-sizing:border-box}.overall-response-pie .response-pie-content{gap:12px}@media(max-width:850px){.response-overview-layout{grid-template-columns:1fr}}
+.response-pies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:12px 0 20px}.response-pie-card{border:1px solid #e1e6e8;border-radius:10px;padding:13px;background:#fff;min-width:0}.response-pie-card h4{margin:0 0 12px;font-size:13px}.response-pie-content{display:flex;align-items:center;gap:13px}.response-pie{width:112px;height:112px;flex:0 0 112px;border-radius:50%;border:1px solid #e5e9eb}.pie-legend{display:grid;gap:7px;min-width:0;flex:1}.pie-legend-item{display:grid;grid-template-columns:9px minmax(0,1fr) auto auto;align-items:center;gap:5px;font-size:10px;color:#53616b}.pie-swatch{width:9px;height:9px;border-radius:2px}.pie-legend-item strong{font-size:10px;color:#28343c}.pie-legend-item small{font-size:9px;color:#7a858d}.pie-total{margin:9px 0 0;font-size:10px;color:#7a858d}@media(max-width:850px){.response-pies{grid-template-columns:1fr}.response-pie-content{justify-content:flex-start}.response-pie{width:100px;height:100px;flex-basis:100px}}
+.profile-bars{display:grid;gap:18px;padding:4px 0}.profile-bar-row{display:grid;gap:6px}.profile-bar-label{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.profile-bar-label span,.profile-bar-meta{font-size:12px;color:#718078}.profile-bar-track{height:12px;background:#edf1f3;border-radius:99px;overflow:hidden}.profile-bar-fill{height:100%;background:#71899b;border-radius:99px}.context-card{border:1px solid #e0e6e8;border-radius:10px;padding:14px;margin:12px 0}.context-title{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.context-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.context-fields .wide{grid-column:1/-1}@media(max-width:700px){.context-fields{grid-template-columns:1fr}.context-fields .wide{grid-column:auto}}
 .form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px 22px}label{display:flex;flex-direction:column;gap:7px;font-weight:650;font-size:13px;color:#4f5b53;min-width:0}input,select,textarea{width:100%;min-width:0;border:1px solid #d9dfda;border-radius:8px;background:#fff;padding:11px 12px;font:14px/1.4 inherit;color:var(--ink);outline:none}input,select{min-height:43px}textarea{resize:vertical;min-height:86px}input:focus,select:focus,textarea:focus{border-color:#8b9b8f;box-shadow:0 0 0 3px #e9eee9}.wide{grid-column:1/-1}
 .panel-footer,.view-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:25px;padding-top:18px}.button{border:1px solid transparent;border-radius:8px;padding:10px 15px;font-size:13px;font-weight:650;cursor:pointer;transition:background .15s,border-color .15s}.button:hover{filter:brightness(.97)}.button.primary{background:#53665b;color:#fff}.button.primary:hover{background:#425449}.button.secondary{background:#fff;border-color:#d8ded9;color:#46544b}.button.ghost{background:#fff;border-color:#d8ded9;color:#536157}.button.small{font-size:12px;padding:8px 10px}.full{width:100%}.text-button{border:0;background:transparent;color:#58695e;padding:12px 10px;font-size:12px;font-weight:650;cursor:pointer;text-align:left}.muted{color:var(--muted);font-size:12px}
-.notice{border:1px solid #e1e6e1;background:#f0f3f0;border-radius:10px;padding:15px 18px;margin:18px 0;color:#4e5d52}.notice p{margin:3px 0 0;font-size:13px}.notice.warning{background:#f7f3e9;border-color:#e9dfc9;color:#78623a}
+.notice{border:1px solid #e1e6e1;background:#f0f3f0;border-radius:10px;padding:15px 18px;margin:18px 0;color:#4e5d52}.notice p{margin:3px 0 0;font-size:13px}.notice.warning{background:#f0eef5;border-color:#ddd7e8;color:#625879}
 .group-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:25px 2px 10px}.group-heading h3{font-size:15px;margin:0;color:#3d4b42;font-weight:700}.group-heading span{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#89938c;font-weight:800}
-.question-card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:20px 21px;margin-bottom:11px;box-shadow:0 3px 12px rgba(28,39,32,.025)}.question-top{display:flex;justify-content:space-between;gap:15px}.question-number{font-size:10px;color:#89948c;font-weight:800;letter-spacing:1px}.question-card h3{font-size:15px;line-height:1.45;margin:5px 0 8px;font-weight:680}.definition{font-size:13px;color:#69756d;margin:0 0 17px;max-width:850px}.response-label{font-size:10px;font-weight:800;color:#79857c;letter-spacing:.8px;margin-bottom:9px}.choices{display:flex;flex-wrap:wrap;gap:8px}.choice{position:relative;display:inline-flex}.choice input{position:absolute;opacity:0;width:1px;height:1px;min-height:0}.choice span{display:block;border:1px solid #dce2dd;border-radius:7px;padding:8px 13px;font-size:12px;font-weight:650;color:#59665e;cursor:pointer;background:#fff}.choice input:checked+span{border-color:#718579;background:#edf1ed;color:#3f5145;box-shadow:inset 0 0 0 1px #718579}.choice.no input:checked+span{background:#f5eeee;border-color:#c99a9a;color:#8d4d4d}.choice.unclear input:checked+span{background:#f6f1e7;border-color:#c9b27e;color:#806a38}.choice.not-assessed input:checked+span{background:#f0f1ef;border-color:#aeb7b0;color:#5e6961}
-.followup{margin-top:17px;padding-top:15px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:13px}.followup[hidden]{display:none}.followup .wide{grid-column:1/-1}.followup label{font-size:12px}.followup textarea{min-height:75px}.supportive-card{border-left:3px solid #aab9ad}.supportive-card .question-number{color:#718579}.section-note{padding:12px 2px 20px}
-.threshold-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.small-note{grid-column:1/-1}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:16px 0}.result-card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:17px}.result-card .domain{font-size:10px;color:var(--muted);font-weight:750;text-transform:uppercase;letter-spacing:.8px}.result-card .count{font-size:29px;font-weight:750;margin:6px 0 1px}.level{display:inline-block;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:800}.level.low{background:#edf2ed;color:#4c6a53}.level.moderate{background:#f5f0e4;color:#826a35}.level.high{background:#f5eaea;color:#945454}.level.unclassified{background:#eef0ee;color:#627169}.summary-table{width:100%;border-collapse:collapse;font-size:12px;display:block;overflow-x:auto;white-space:nowrap}.summary-table th,.summary-table td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}.summary-table th{color:#728178;font-size:10px;text-transform:uppercase;letter-spacing:.8px}.export-row{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}.export-row .primary{margin-right:auto}
+.question-card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:20px 21px;margin-bottom:11px;box-shadow:0 3px 12px rgba(28,39,32,.025)}.question-top{display:flex;justify-content:space-between;gap:15px}.question-number{font-size:10px;color:#89948c;font-weight:800;letter-spacing:1px}.question-card h3{font-size:15px;line-height:1.45;margin:5px 0 8px;font-weight:680;display:flex;align-items:center;gap:5px;flex-wrap:wrap}.definition{font-size:13px;color:#69756d;margin:0 0 17px;max-width:850px}.response-label{font-size:10px;font-weight:800;color:#79857c;letter-spacing:.8px;margin-bottom:9px}.choices{display:flex;flex-wrap:wrap;gap:8px}.choice{position:relative;display:inline-flex}.choice input{position:absolute;opacity:0;width:1px;height:1px;min-height:0}.choice span{display:block;border:1px solid #dce2dd;border-radius:7px;padding:8px 13px;font-size:12px;font-weight:650;color:#59665e;cursor:pointer;background:#fff}.choice.yes input:checked+span{border-color:#4f9468;background:#e8f3eb;color:#28613d;box-shadow:inset 0 0 0 1px #4f9468}.choice.no input:checked+span{background:#f8eaea;border-color:#c66b6b;color:#923b3b;box-shadow:inset 0 0 0 1px #c66b6b}.choice.unclear input:checked+span{background:#fff1df;border-color:#d69a45;color:#895713;box-shadow:inset 0 0 0 1px #d69a45}.choice.not-assessed input:checked+span{background:#f0f1ef;border-color:#aeb7b0;color:#5e6961}
+.followup{margin-top:17px;padding-top:15px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr 1fr;gap:13px}.followup[hidden]{display:none}.followup .wide{grid-column:1/-1}.followup label{font-size:12px}.followup textarea{min-height:75px}.supportive-card{border-left:3px solid #a6b4c2}.supportive-card .question-number{color:#647b91}.section-note{padding:12px 2px 20px}
+.threshold-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.small-note{grid-column:1/-1}.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:16px 0}.result-card{background:#fff;border:1px solid var(--line);border-radius:11px;padding:17px}.result-card .domain{font-size:10px;color:var(--muted);font-weight:750;text-transform:uppercase;letter-spacing:.8px}.result-card .count{font-size:29px;font-weight:750;margin:6px 0 1px}.level{display:inline-block;padding:4px 9px;border-radius:20px;font-size:11px;font-weight:800}.level.low{background:#eaf0f5;color:#435c73}.level.moderate{background:#edf0f4;color:#53677c}.level.high{background:#f0eef5;color:#625879}.level.unclassified{background:#eef0f2;color:#5d6874}.summary-table{width:100%;border-collapse:collapse;font-size:12px;display:block;overflow-x:auto;white-space:nowrap}.summary-table th,.summary-table td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}.summary-table th{color:#728178;font-size:10px;text-transform:uppercase;letter-spacing:.8px}.export-row{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0}.export-row .primary{margin-right:auto}
 .dialog-head{display:flex;justify-content:space-between;align-items:center}.dialog-head h3{margin:0}.icon-button{border:0;background:transparent;font-size:18px;cursor:pointer;color:#65756c}dialog{border:1px solid var(--line);border-radius:14px;padding:24px;max-width:540px;width:calc(100% - 32px);box-shadow:0 20px 60px #0002;color:var(--ink)}dialog::backdrop{background:#1c292288}dialog p,dialog li{font-size:13px;color:#53655c}.saved-item{padding:13px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.saved-item strong{display:block}.saved-item small{color:var(--muted)}.empty{color:var(--muted);padding:18px 0}
 @media(max-width:900px){.shell{grid-template-columns:1fr;gap:16px;margin-top:15px}.sidebar{position:static;display:block;overflow:hidden;padding:10px}.sidebar>.side-title,.sidebar-bottom{display:none}.sidebar nav{display:flex}.nav-item{white-space:nowrap;width:auto;display:inline-flex;font-size:12px}.content{max-width:none}.topbar{padding:12px 20px}}
 @media(max-width:620px){.topbar{padding:12px 15px}.local-pill{display:none}.shell{padding:0 12px}.content{padding:0}.page-heading{align-items:flex-start;flex-direction:column;margin:12px 2px 18px}.page-heading h2{font-size:25px}.step-chip{align-self:flex-start}.form-grid,.followup,.threshold-grid{grid-template-columns:1fr}.wide,.followup .wide,.small-note{grid-column:auto}.panel{padding:18px}.question-card{padding:17px}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.choice span{text-align:center}.panel-footer{align-items:flex-start;flex-direction:column}.panel-footer .button{width:100%}.result-grid{grid-template-columns:1fr}.view-footer{flex-wrap:wrap}.view-footer .button{flex:1}}
@@ -41,6 +99,14 @@ button,input,select,textarea{font:inherit}
 .screenshot-area{border-top:1px solid var(--line);padding-top:14px;margin-top:3px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
 .screenshot-heading{display:flex;flex-direction:column;gap:2px}.screenshot-heading strong{font-size:12px;color:#4f5b53}.screenshot-heading span{font-size:11px;color:var(--muted)}
 .screenshot-upload{font-size:12px;padding:8px 12px}
+
+.video-evidence-list{display:flex;flex-direction:column;gap:12px;width:100%}
+.video-evidence-item{border:1px solid var(--line);border-radius:9px;padding:10px;display:flex;flex-direction:column;gap:8px;max-width:100%}
+.video-evidence-item video{width:100%;max-height:280px;background:#111;border-radius:6px}
+.video-evidence-item .video-meta{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.evidence-actions{display:flex;flex-wrap:wrap;gap:8px}
+.video-upload{font-size:12px;padding:8px 12px}
+
 .evidence-previews{display:flex;flex-wrap:wrap;gap:11px;width:100%}
 .evidence-thumb{width:140px;border:1px solid var(--line);border-radius:8px;padding:7px;background:#fafbfa;display:flex;flex-direction:column;gap:5px}
 .evidence-thumb img{width:100%;height:88px;object-fit:cover;border-radius:5px;background:#eef0ed}
@@ -67,6 +133,7 @@ button,input,select,textarea{font:inherit}
         <div id="currentGame" class="current-game">New assessment</div>
         <button class="button small secondary full" id="newBtn">＋ New assessment</button>
         <button class="text-button" id="savedBtn">Open saved assessments</button>
+        <button class="nav-item compare-nav" id="compareGamesBtn" data-view="compare" type="button"><span>⇄</span> Compare Video Games</button>
       </div>
     </aside>
     <section class="content">
@@ -76,14 +143,14 @@ button,input,select,textarea{font:inherit}
           <div class="panel-heading"><div><h3>Game descriptive questions</h3><p>These fields follow the descriptive section of Game-check Coding Tool 2.0.</p></div><span class="panel-icon">▤</span></div>
           <div class="form-grid">
             <label>1. What is the name of your game? <input id="gameTitle" placeholder="Game name"></label>
-            <label>2. On which platforms can this game be played? <input id="platforms" placeholder="e.g. PC, PlayStation, Xbox"></label>
+            <label><span class="question-label">2. On which platforms can this game be played? <span class="info-tip" tabindex="0" role="button" aria-label="More information">i<span class="tooltip-content"><strong>Platforms</strong><ul><li>Browser</li><li>iOS</li><li>Android</li><li>PC</li><li>PlayStation</li><li>Xbox</li><li>Nintendo Switch</li></ul></span></span></span> <input id="platforms" placeholder="e.g. PC, PlayStation, Xbox"></label>
             <label>3. Who is the publisher of the game? <input id="developer" placeholder="Publisher"></label>
             <label>4. Does the game feature multiple modes? <select id="multipleModes"><option value="">Select...</option><option>Yes</option><option>No</option><option>Unclear</option></select></label>
-            <label class="wide">If yes, please list all the modes <textarea id="modes" rows="2" placeholder="e.g. single-player campaign, co-op multiplayer, sandbox mode"></textarea></label>
-            <label class="wide">5. What player interaction patterns are featured in the game? <textarea id="interactionPatterns" rows="2" placeholder="e.g. player-vs-game (PvE), player-vs-player (PvP), co-operative play"></textarea></label>
+            <label class="wide"><span class="question-label">If yes, please list all the modes <span class="info-tip" tabindex="0" role="button" aria-label="More information">i<span class="tooltip-content"><strong>Information about game modes</strong><ul><li>Sandbox mode (freedom of action)</li><li>Campaign mode (story driven)</li><li>Survival mode (trying to stay alive)</li><li>Time attack mode (finish a level or beat a score before timer runs out)</li><li>Competitive vs cooperative</li><li>Multiplayer vs single player</li></ul></span></span></span> <textarea id="modes" rows="2" placeholder="e.g. single-player campaign, co-op multiplayer, sandbox mode"></textarea></label>
+            <label class="wide"><span class="question-label">5. What player interaction patterns are featured in the game? <span class="info-tip" tabindex="0" role="button" aria-label="More information">i<span class="tooltip-content"><strong>Player interaction patterns</strong><ul><li>Player vs player (PvP)</li><li>Player vs environment (PvE)</li><li>Multiplayer vs multiplayer</li><li>Multiplayer vs environment</li></ul></span></span></span> <textarea id="interactionPatterns" rows="2" placeholder="e.g. player-vs-game (PvE), player-vs-player (PvP), co-operative play"></textarea></label>
             <label class="wide">6. In a maximum of 100 words, describe what your game is about <textarea id="gameDescription" rows="4" maxlength="1000" placeholder="Briefly describe the game (maximum 100 words)."></textarea><span class="muted" id="wordCount">0 / 100 words</span></label>
             <label class="wide">7. Are there any important rules that are central to understanding how the game works? If so, describe them. <textarea id="gameRules" rows="3" placeholder="Describe the central rules, mechanics or conditions."></textarea></label>
-            <label>8. Does the game feature live operations (can it be updated after purchase)? <select id="liveOps"><option value="">Select...</option><option>Yes</option><option>No</option><option>Unclear</option></select></label>
+            <label><span class="question-label">8. Does the game feature live operations (can it be updated after purchase)? <span class="info-tip" tabindex="0" role="button" aria-label="More information">i<span class="tooltip-content">This can be checked in the change log of the video game.</span></span></span> <select id="liveOps"><option value="">Select...</option><option>Yes</option><option>No</option><option>Unclear</option></select></label>
             <label>9. Which mode would you like to describe using the Game-check tool? <input id="modeAssessed" placeholder="e.g. single-player campaign"></label>
             <label>Assessment date <input id="assessmentDate" type="date"></label>
             <label>Researcher ID <input id="researcher" placeholder="Pseudonymous researcher ID"></label>
@@ -97,26 +164,38 @@ button,input,select,textarea{font:inherit}
       <div id="view-time" class="view"><div id="questions-time"></div><div class="view-footer"><button class="button secondary" data-go="money">← Previous</button><button class="button primary" data-go="engagement">Continue to engagement →</button></div></div>
       <div id="view-engagement" class="view"><div id="questions-engagement"></div><div class="view-footer"><button class="button secondary" data-go="time">← Previous</button><button class="button primary" data-go="results">View results →</button></div></div>
       <div id="view-results" class="view">
-        <div class="notice warning"><strong>Classification is provisional</strong><p>The default thresholds below are demonstration settings, not validated Game-check rules. Configure them based on the agreed methodology before interpreting results.</p></div>
-        <div class="panel"><div class="panel-heading"><div><h3>Risk classification settings</h3><p>Set the number of identified indicators that triggers each category level.</p></div></div>
-          <div class="threshold-grid">
-            <label>Low: maximum Yes responses <input id="lowMax" type="number" min="0" value="0"></label>
-            <label>Moderate: maximum Yes responses <input id="mediumMax" type="number" min="1" value="2"></label>
-            <div class="muted small-note">High is automatically assigned above the moderate threshold. These simple count-based rules do not account for severity or weighting.</div>
-          </div>
-          <div class="panel-footer"><span class="muted">Settings are saved with this assessment.</span><button class="button secondary" id="applyRules">Apply classification rules</button></div>
-        </div>
+        <div class="notice warning"><strong>How to interpret these results</strong><p>The counts and charts below describe which checklist indicators were identified. They do not measure harm or establish that a game is safe or unsafe. Contextual evaluation and researcher judgement are needed before drawing conclusions. Wellbeing supportive measures are reported separately and do not cancel out pressure indicators.</p></div>
         <div id="resultsSummary"></div>
         <div class="panel"><div class="panel-heading"><div><h3>Overall researcher assessment</h3><p>Interpret the profile; do not rely on counts alone.</p></div></div>
           <label>Overall classification <select id="overallLevel"><option value="">Not assigned</option><option>Low</option><option>Moderate</option><option>High</option><option>Requires further investigation</option></select></label>
           <label>Rationale / key findings <textarea id="overallRationale" rows="4" placeholder="Explain the overall assessment and any important contextual factors..."></textarea></label>
-          <div class="panel-footer"><span class="muted">Researcher judgement should be supported by recorded evidence.</span><button class="button primary" id="saveAssessment">Save assessment</button></div>
+          <div class="panel-footer"><span class="muted">Researcher judgement should be supported by the assessment findings.</span><button class="button primary" id="saveAssessment">Save assessment</button></div>
         </div>
-        <div class="export-row"><button class="button primary" id="exportJson">Export assessment (JSON)</button><button class="button secondary" id="exportCsv">Export responses (CSV)</button><button class="button secondary" id="printBtn">Print summary</button></div>
+        <div class="export-row"><button class="button primary" id="exportJson">Export assessment (JSON)</button><button class="button secondary" id="exportPackage">Export complete package (ZIP)</button><button class="button secondary" id="exportCsv">Export responses (CSV)</button><button class="button secondary" id="printBtn">Print summary</button></div>
+      </div>
+      <div id="view-compare" class="view">
+        <div class="panel">
+          <div class="panel-heading"><div><h3>Select two saved videogames</h3><p>Choose two completed or in-progress assessments saved in this browser to compare their checklist responses and assessment profiles.</p></div></div>
+          <div class="compare-selectors">
+            <label>First videogame<select id="compareGameA"><option value="">Select an assessment...</option></select></label>
+            <label>Second videogame<select id="compareGameB"><option value="">Select an assessment...</option></select></label>
+          </div>
+          <p class="muted compare-note">Only assessments saved in this browser are available. Your current assessment is saved automatically when you open this page.</p>
+        </div>
+        <div id="comparisonResults">
+          <div class="panel empty">Select two different saved assessments to see their comparison.</div>
+        </div>
       </div>
     </section>
   </main>
-  <dialog id="helpDialog"><div class="dialog-head"><h3>Using the Game-check prototype</h3><button class="icon-button" id="closeHelp">✕</button></div><p>Complete the descriptive questions, then assess the listed elements under money, time and attention/engagement. Select one response per item: Yes, No or Unclear. Use the separate Further information button whenever you want to add an explanation, evidence or researcher notes.</p><p>The original tool notes that pressure strategies are not necessarily negative and that strategies may cover multiple domains. Some items are wellbeing supportive measures and are reported separately.</p><p><strong>Response meanings</strong></p><ul><li><strong>Yes:</strong> the element was identified.</li><li><strong>No:</strong> the element was not identified.</li><li><strong>Unclear:</strong> available information is insufficient to determine whether the element is present.</li></ul><p>All data is stored in this browser on this computer. Export JSON regularly as a backup. This prototype has no server or user accounts.</p><p><strong>Important:</strong> Replace the illustrative questions and configure defensible classification rules before using the tool for actual research.</p><button class="button primary full" id="okHelp">Got it</button></dialog>
+  <dialog id="unclearReviewDialog" class="review-dialog">
+    <div class="dialog-head"><h3>Review unclear game elements</h3><button class="icon-button" id="closeUnclearReview" type="button" aria-label="Close review">✕</button></div>
+    <div class="review-progress"><span id="unclearReviewProgress">Question 1 of 1</span><div class="review-progress-track"><div id="unclearReviewProgressFill"></div></div></div>
+    <div id="unclearReviewQuestion" class="review-question"></div>
+    <p class="muted review-hint">Based on the information available, decide whether this element is present in the game.</p>
+    <div class="review-actions"><button class="button yes-review" data-review-status="Yes" type="button">Yes</button><button class="button no-review" data-review-status="No" type="button">No</button><button class="button unclear-review" data-review-status="Unclear" type="button">Unclear</button></div>
+  </dialog>
+  <dialog id="helpDialog"><div class="dialog-head"><h3>Using the Game-check prototype</h3><button class="icon-button" id="closeHelp">✕</button></div><p>Complete the descriptive questions, then assess the listed elements under money, time and attention/engagement. Select one response per item: Yes, No or Unclear. Use the separate Further information button whenever you want to add an explanation, evidence or researcher notes.</p><p>Colours are used for navigation and visual distinction only; they do not indicate that an element is good or bad. For the maximum spending limit item (M03), use Further information to record the actual cap, where it was found and whether it is suitable for the player and their family. A cap being present does not automatically mean it supports wellbeing. The original tool notes that pressure strategies are not necessarily negative and that strategies may cover multiple domains. Some items are wellbeing supportive measures and are reported separately.</p><p><strong>Response meanings</strong></p><ul><li><strong>Yes:</strong> the element was identified.</li><li><strong>No:</strong> the element was not identified.</li><li><strong>Unclear:</strong> available information is insufficient to determine whether the element is present.</li></ul><p>All data is stored in this browser on this computer. Screenshots and screen recordings are kept locally in this browser. Use Export complete package (ZIP) to download the assessment together with its evidence. This prototype has no server or user accounts.</p><p><strong>Screen recordings:</strong> Upload an existing MP4 or WebM recording (maximum 50 MB and 60 seconds per file). The website does not record your screen.</p><p><strong>Important:</strong> The results are descriptive and the contextual ratings are researcher judgements, not validated risk scores. Test and refine the evaluation guidance before using it for actual research.</p><button class="button primary full" id="okHelp">Got it</button></dialog>
   <dialog id="savedDialog"><div class="dialog-head"><h3>Saved assessments</h3><button class="icon-button" id="closeSaved">✕</button></div><div id="savedList"></div></dialog>
   <script>window.GAMECHECK_QUESTIONS = [
   {
@@ -691,7 +770,33 @@ async function deleteEvidence(id){const db=await openEvidenceDB();return new Pro
 async function evidenceAsDataURL(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
 async function compressScreenshot(file){const bitmap=await createImageBitmap(file);const scale=Math.min(1,1400/Math.max(bitmap.width,bitmap.height));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*scale));canvas.height=Math.max(1,Math.round(bitmap.height*scale));const ctx=canvas.getContext('2d');ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close?.();return await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('Could not process this image.')),'image/jpeg',0.78));}
 async function renderEvidencePreviews(qid,container){container.innerHTML='';const refs=assessment.answers[qid]?.screenshots||[];for(const ref of refs){const record=await getEvidence(ref.id);if(!record)continue;const item=document.createElement('div');item.className='evidence-thumb';const img=document.createElement('img');img.alt=ref.name;img.src=URL.createObjectURL(record.blob);const caption=document.createElement('span');caption.textContent=ref.name;const remove=document.createElement('button');remove.type='button';remove.className='evidence-remove';remove.textContent='Remove';remove.addEventListener('click',async()=>{await deleteEvidence(ref.id);const answer=assessment.answers[qid]||{};answer.screenshots=(answer.screenshots||[]).filter(x=>x.id!==ref.id);assessment.answers[qid]=answer;persist();renderEvidencePreviews(qid,container);});item.append(img,caption,remove);container.append(item);}}
-async function removeAssessmentEvidence(savedAssessment){for(const answer of Object.values(savedAssessment.answers||{})){for(const ref of answer.screenshots||[]){await deleteEvidence(ref.id);}}}
+
+async function renderVideoPreviews(qid,container){
+ container.innerHTML='';
+ const refs=assessment.answers[qid]?.videos||[];
+ for(const ref of refs){
+  const record=await getEvidence(ref.id); if(!record) continue;
+  const item=document.createElement('div'); item.className='video-evidence-item';
+  const video=document.createElement('video'); video.controls=true; video.preload='metadata';
+  const url=URL.createObjectURL(record.blob); video.src=url;
+  const meta=document.createElement('div'); meta.className='video-meta';
+  meta.textContent=`${ref.name} · ${ref.sizeLabel||'Video recording'}`;
+  const remove=document.createElement('button'); remove.type='button'; remove.className='evidence-remove'; remove.textContent='Remove recording';
+  remove.addEventListener('click',async()=>{
+   URL.revokeObjectURL(url); await deleteEvidence(ref.id);
+   const answer=assessment.answers[qid]||{};
+   answer.videos=(answer.videos||[]).filter(x=>x.id!==ref.id);
+   assessment.answers[qid]=answer; persist(); renderVideoPreviews(qid,container);
+  });
+  item.append(video,meta,remove); container.append(item);
+ }
+}
+async function removeAssessmentEvidence(savedAssessment){
+ for(const answer of Object.values(savedAssessment.answers||{})){
+  for(const ref of answer.screenshots||[]){await deleteEvidence(ref.id);}
+  for(const ref of answer.videos||[]){await deleteEvidence(ref.id);}
+ }
+}
 
 
 const STORAGE_KEY='gamecheck_assessments_v2';
@@ -704,11 +809,233 @@ function freshAssessment(){return {id:crypto.randomUUID(),createdAt:new Date().t
 function loadAll(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]')}catch{return []}}
 function persist(){assessment.updatedAt=new Date().toISOString();const all=loadAll();const i=all.findIndex(x=>x.id===assessment.id);if(i>=0)all[i]=assessment;else all.unshift(assessment);localStorage.setItem(STORAGE_KEY,JSON.stringify(all));updateCurrent();return all}
 function updateCurrent(){document.getElementById('currentGame').textContent=assessment.game.title||'New assessment';}
-function setView(view){activeView=view;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));document.querySelectorAll('.nav-item').forEach(x=>x.classList.toggle('active',x.dataset.view===view));const info={game:['GETTING STARTED','Game information','Record the descriptive information requested in Game-check Coding Tool 2.0.','Step 1 of 5'],money:['ASSESSMENT CATEGORY','Pressure on money','Review each money-related element and wellbeing supportive measure.','Step 2 of 5'],time:['ASSESSMENT CATEGORY','Pressure on time','Review each time-sensitive element and wellbeing supportive measure.','Step 3 of 5'],engagement:['ASSESSMENT CATEGORY','Pressure on attention/engagement','Review each attention and engagement element and wellbeing supportive measure.','Step 4 of 5'],results:['ASSESSMENT OUTPUT','Results & classification','Review the coded elements and interpret the overall assessment.','Step 5 of 5']}[view];document.getElementById('sectionEyebrow').textContent=info[0];document.getElementById('pageTitle').textContent=info[1];document.getElementById('pageDescription').textContent=info[2];document.getElementById('stepChip').textContent=info[3];if(view==='results')renderResults();window.scrollTo({top:0,behavior:'smooth'});}
-function renderQuestions(domain){const host=document.getElementById('questions-'+domain);host.innerHTML='';const qs=questionBank.filter(q=>q.domain===domain);let lastGroup='';qs.forEach((q,i)=>{if(q.group!==lastGroup){const heading=document.createElement('div');heading.className='group-heading';heading.innerHTML=`<h3>${escapeHtml(q.group)}</h3><span>${q.kind==='supportive'?'Wellbeing supportive measure':'Game element / strategy'}</span>`;host.append(heading);lastGroup=q.group;}const answer=assessment.answers[q.id]||{};const card=document.createElement('article');card.className='question-card'+(q.kind==='supportive'?' supportive-card':'');card.innerHTML=`<div class="question-top"><div><div class="question-number">${q.id} · ${q.kind==='supportive'?'SUPPORTIVE MEASURE':'ASSESSMENT ITEM'}</div><h3></h3></div></div><p class="definition"></p><div class="response-label">IS THIS ELEMENT PRESENT IN THE GAME?</div><div class="choices"></div><div class="further-toggle-row"><button class="further-toggle" type="button" aria-expanded="false"><span>＋</span> Further information</button></div><div class="followup" hidden><label class="wide">Additional information / explanation<textarea class="explanation" rows="3" placeholder="Describe how this element is implemented, or explain why the answer is unclear."></textarea></label><label>Evidence / location<input class="evidence" placeholder="e.g. Main menu → Store → Offers"></label><label>Researcher notes<input class="notes" placeholder="Optional observations"></label><div class="screenshot-area wide"><div class="screenshot-heading"><strong>Screenshot evidence</strong><span>Upload one or more images showing this game element.</span></div><input class="screenshot-input" type="file" accept="image/*" multiple hidden><button class="button secondary screenshot-upload" type="button">＋ Upload screenshot</button><div class="evidence-previews"></div></div></div>`;card.querySelector('h3').textContent=q.title;card.querySelector('.definition').textContent=q.definition;const choices=card.querySelector('.choices');STATUS.forEach(s=>{const label=document.createElement('label');label.className='choice '+s.toLowerCase().replaceAll(' ','-');const input=document.createElement('input');input.type='radio';input.name='answer-'+q.id;input.value=s;input.checked=answer.status===s;const span=document.createElement('span');span.textContent=s;label.append(input,span);choices.append(label);input.addEventListener('change',()=>{const obj=assessment.answers[q.id]||{};obj.status=s;assessment.answers[q.id]=obj;persist();updateCounts();});});const follow=card.querySelector('.followup'),toggle=card.querySelector('.further-toggle'),explanation=card.querySelector('.explanation'),evidence=card.querySelector('.evidence'),notes=card.querySelector('.notes');explanation.value=answer.explanation||'';evidence.value=answer.evidence||'';notes.value=answer.notes||'';toggle.addEventListener('click',()=>{const opening=follow.hidden;follow.hidden=!opening;toggle.setAttribute('aria-expanded',String(opening));toggle.innerHTML=opening?'<span>−</span> Hide further information':'<span>＋</span> Further information';});[explanation,evidence,notes].forEach(el=>el.addEventListener('input',()=>{const obj=assessment.answers[q.id]||{};obj[el.classList.contains('explanation')?'explanation':el.classList.contains('evidence')?'evidence':'notes']=el.value;assessment.answers[q.id]=obj;persist();}));const screenshotInput=card.querySelector('.screenshot-input'),uploadButton=card.querySelector('.screenshot-upload'),previewHost=card.querySelector('.evidence-previews');uploadButton.addEventListener('click',()=>screenshotInput.click());screenshotInput.addEventListener('change',async()=>{const files=Array.from(screenshotInput.files||[]);for(const file of files){if(!file.type.startsWith('image/'))continue;try{const blob=await compressScreenshot(file);const id=crypto.randomUUID();await putEvidence({id,blob,originalName:file.name,createdAt:new Date().toISOString()});const obj=assessment.answers[q.id]||{};obj.screenshots=obj.screenshots||[];obj.screenshots.push({id,name:file.name,type:'image/jpeg'});assessment.answers[q.id]=obj;persist();}catch(error){alert('This screenshot could not be added. Please try another image.');}}screenshotInput.value='';await renderEvidencePreviews(q.id,previewHost);});renderEvidencePreviews(q.id,previewHost);host.append(card);});const note=document.createElement('div');note.className='muted section-note';note.textContent='Select one response for each listed element. Unclear is distinct from No: use it when available information is insufficient. Wellbeing supportive measures are reported separately and are not counted as pressure indicators.';host.append(note);}
+function setView(view){activeView=view;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+view));document.querySelectorAll('.nav-item').forEach(x=>x.classList.toggle('active',x.dataset.view===view));const info={game:['GETTING STARTED','Game information','Record the descriptive information requested in Game-check Coding Tool 2.0.','Step 1 of 5'],money:['ASSESSMENT CATEGORY','Pressure on money','Review each money-related element and wellbeing supportive measure.','Step 2 of 5'],time:['ASSESSMENT CATEGORY','Pressure on time','Review each time-sensitive element and wellbeing supportive measure.','Step 3 of 5'],engagement:['ASSESSMENT CATEGORY','Pressure on attention/engagement','Review each attention and engagement element and wellbeing supportive measure.','Step 4 of 5'],results:['ASSESSMENT OUTPUT','Results & classification','Review the coded elements and interpret the overall assessment.','Step 5 of 5'],compare:['GAME COMPARISON','Compare Video Games','Compare two saved videogame assessments using response distributions and assessment summaries.','Comparison']}[view];document.getElementById('sectionEyebrow').textContent=info[0];document.getElementById('pageTitle').textContent=info[1];document.getElementById('pageDescription').textContent=info[2];document.getElementById('stepChip').textContent=info[3];if(view==='results')renderResults();if(view==='compare')renderComparison();window.scrollTo({top:0,behavior:'smooth'});}
+function renderQuestions(domain){const host=document.getElementById('questions-'+domain);host.innerHTML='';const qs=questionBank.filter(q=>q.domain===domain);let lastGroup='';qs.forEach((q,i)=>{if(q.group!==lastGroup){const heading=document.createElement('div');heading.className='group-heading';heading.innerHTML=`<h3>${escapeHtml(q.group)}</h3><span>${q.kind==='supportive'?'Wellbeing supportive measure':'Game element / strategy'}</span>`;host.append(heading);lastGroup=q.group;}const answer=assessment.answers[q.id]||{};const card=document.createElement('article');card.className='question-card'+(q.kind==='supportive'?' supportive-card':'');card.innerHTML=`<div class="question-top"><div><div class="question-number">${q.id} · ${q.kind==='supportive'?'SUPPORTIVE MEASURE':'ASSESSMENT ITEM'}</div><h3></h3></div></div><p class="definition"></p><div class="response-label">IS THIS ELEMENT PRESENT IN THE GAME?</div><div class="choices"></div><div class="further-toggle-row"><button class="further-toggle" type="button" aria-expanded="false"><span>＋</span> Further information</button></div><div class="followup" hidden><div class="structured-followup" data-special="M03" hidden><label>What is the spending limit? <input class="cap-value" placeholder="e.g. €20 per day / €100 per month"></label><label>Where did you find this information? <input class="cap-location" placeholder="e.g. Settings, parental controls, terms and conditions"></label><label class="wide">Is this limit a suitable budget for the player and their family? <textarea class="cap-reflection" rows="3" placeholder="Explain why the limit may or may not be appropriate. Consider the player’s age and the family’s own budget and expectations."></textarea></label></div><label class="wide">Additional information / explanation<textarea class="explanation" rows="3" placeholder="Describe how this element is implemented, or explain why the answer is unclear."></textarea></label><label>Evidence / location<input class="evidence" placeholder="e.g. Main menu → Store → Offers"></label><label>Researcher notes<input class="notes" placeholder="Optional observations"></label><div class="screenshot-area wide"><div class="screenshot-heading"><strong>Screenshot evidence</strong><span>Upload one or more images showing this game element.</span></div><input class="screenshot-input" type="file" accept="image/*" multiple hidden><button class="button secondary screenshot-upload" type="button">＋ Upload screenshot</button><div class="evidence-previews"></div></div><div class="screenshot-area wide"><div class="screenshot-heading"><strong>Screen recording evidence</strong><span>Upload an existing MP4 or WebM recording from your computer. Maximum 50 MB and 60 seconds per recording. The website does not record your screen.</span></div><input class="video-input" type="file" accept="video/mp4,video/webm,.mp4,.webm" multiple hidden><button class="button secondary video-upload" type="button">＋ Upload screen recording</button><div class="video-evidence-list"></div></div></div>`;card.querySelector('h3').textContent=q.title;
+if(q.id==='M09'){
+ const info=document.createElement('span');info.className='criterion-info';info.tabIndex=0;info.setAttribute('role','button');info.setAttribute('aria-label','More information about complex purchasing options');info.textContent='i';
+ const tip=document.createElement('span');tip.className='criterion-tooltip';tip.innerHTML='<strong>Examples of complex purchases</strong><br><br><strong>Piggy bank system:</strong> value accumulates through in-game rewards or currency and can be unlocked for a price.<br><br><strong>Sequential offers:</strong> offers alternate free and paid rewards, visualised as a ladder or track.';
+ info.append(tip);card.querySelector('h3').append(info);
+}
+card.querySelector('.definition').textContent=q.definition;
+const choices=card.querySelector('.choices');STATUS.forEach(s=>{const label=document.createElement('label');label.className='choice '+s.toLowerCase().replaceAll(' ','-');const input=document.createElement('input');input.type='radio';input.name='answer-'+q.id;input.value=s;input.checked=answer.status===s;const span=document.createElement('span');span.textContent=s;label.append(input,span);choices.append(label);input.addEventListener('change',()=>{const obj=assessment.answers[q.id]||{};obj.status=s;assessment.answers[q.id]=obj;persist();updateCounts();});});const follow=card.querySelector('.followup'),toggle=card.querySelector('.further-toggle'),explanation=card.querySelector('.explanation'),evidence=card.querySelector('.evidence'),notes=card.querySelector('.notes');explanation.value=answer.explanation||'';evidence.value=answer.evidence||'';notes.value=answer.notes||'';
+const m03Fields=card.querySelector('[data-special="M03"]');
+if(q.id==='M03'){
+ m03Fields.hidden=false;
+ const guidance=document.createElement('div');guidance.className='m03-always-visible';
+ guidance.innerHTML='<strong>Important: assess the quality and suitability of the spending limit.</strong><p>A cap being present does not automatically mean that it is adequate or supports wellbeing. Consider how high the limit is, whether it is easy to find, and whether it is appropriate for the player and their family. For example, would the family consider this a suitable budget for a 13-year-old?</p><p>Use <strong>Further information</strong> to record the actual limit, where you found it, and your reflection on its suitability.</p>';
+ card.querySelector('.definition').after(guidance);
+ const capValue=m03Fields.querySelector('.cap-value'),capLocation=m03Fields.querySelector('.cap-location'),capReflection=m03Fields.querySelector('.cap-reflection');
+ capValue.value=answer.capValue||'';capLocation.value=answer.capLocation||'';capReflection.value=answer.capReflection||'';
+ [[capValue,'capValue'],[capLocation,'capLocation'],[capReflection,'capReflection']].forEach(([el,key])=>el.addEventListener('input',()=>{const obj=assessment.answers[q.id]||{};obj[key]=el.value;assessment.answers[q.id]=obj;persist();}));
+}toggle.addEventListener('click',()=>{const opening=follow.hidden;follow.hidden=!opening;toggle.setAttribute('aria-expanded',String(opening));toggle.innerHTML=opening?'<span>−</span> Hide further information':'<span>＋</span> Further information';});[explanation,evidence,notes].forEach(el=>el.addEventListener('input',()=>{const obj=assessment.answers[q.id]||{};obj[el.classList.contains('explanation')?'explanation':el.classList.contains('evidence')?'evidence':'notes']=el.value;assessment.answers[q.id]=obj;persist();}));const screenshotInput=card.querySelector('.screenshot-input'),uploadButton=card.querySelector('.screenshot-upload'),previewHost=card.querySelector('.evidence-previews');uploadButton.addEventListener('click',()=>screenshotInput.click());screenshotInput.addEventListener('change',async()=>{const files=Array.from(screenshotInput.files||[]);for(const file of files){if(!file.type.startsWith('image/'))continue;try{const blob=await compressScreenshot(file);const id=crypto.randomUUID();await putEvidence({id,blob,originalName:file.name,createdAt:new Date().toISOString()});const obj=assessment.answers[q.id]||{};obj.screenshots=obj.screenshots||[];obj.screenshots.push({id,name:file.name,type:'image/jpeg'});assessment.answers[q.id]=obj;persist();}catch(error){alert('This screenshot could not be added. Please try another image.');}}screenshotInput.value='';await renderEvidencePreviews(q.id,previewHost);});
+const videoInput=card.querySelector('.video-input'),videoButton=card.querySelector('.video-upload'),videoHost=card.querySelector('.video-evidence-list');
+videoButton.addEventListener('click',()=>videoInput.click());
+videoInput.addEventListener('change',async()=>{
+ const files=Array.from(videoInput.files||[]);
+ for(const file of files){
+  if(!['video/mp4','video/webm'].includes(file.type) && !/\.(mp4|webm)$/i.test(file.name)){alert('Please choose an MP4 or WebM video.');continue;}
+  if(file.size>50*1024*1024){alert(`"${file.name}" is larger than 50 MB. Please choose a smaller recording.`);continue;}
+  try{
+   const duration=await new Promise((resolve,reject)=>{
+    const probe=document.createElement('video'); const url=URL.createObjectURL(file);
+    probe.preload='metadata'; probe.onloadedmetadata=()=>{const d=probe.duration;URL.revokeObjectURL(url);resolve(d);};
+    probe.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('Could not read video.'));}; probe.src=url;
+   });
+   if(!Number.isFinite(duration)||duration>60){alert(`"${file.name}" is longer than 60 seconds or could not be checked. Please choose a recording of 60 seconds or less.`);continue;}
+   const id=crypto.randomUUID();
+   await putEvidence({id,blob:file,originalName:file.name,createdAt:new Date().toISOString(),mediaType:'video'});
+   const obj=assessment.answers[q.id]||{};obj.videos=obj.videos||[];
+   obj.videos.push({id,name:file.name,type:file.type||'video/mp4',size:file.size,duration});
+   assessment.answers[q.id]=obj;persist();
+  }catch(error){alert(`The recording "${file.name}" could not be added. Please try another MP4 or WebM file.`);}
+ }
+ videoInput.value=''; await renderVideoPreviews(q.id,videoHost);
+});
+renderEvidencePreviews(q.id,previewHost);renderVideoPreviews(q.id,videoHost);host.append(card);});const note=document.createElement('div');note.className='muted section-note';note.textContent='Select one response for each listed element. Unclear is distinct from No: use it when available information is insufficient. Wellbeing supportive measures are reported separately and are not counted as pressure indicators.';host.append(note);}
 function updateCounts(){domains.forEach(d=>{const qs=questionBank.filter(q=>q.domain===d);const done=qs.filter(q=>assessment.answers[q.id]?.status).length;document.getElementById(d+'Count').textContent=`${done}/${qs.length}`;});}
-function getDomainStats(d){const qs=questionBank.filter(q=>q.domain===d),pressure=qs.filter(q=>q.kind!=='supportive'),supportive=qs.filter(q=>q.kind==='supportive');const counts=Object.fromEntries(STATUS.map(s=>[s,0]));pressure.forEach(q=>{const s=assessment.answers[q.id]?.status;if(s)counts[s]++;});const supportiveYes=supportive.filter(q=>assessment.answers[q.id]?.status==='Yes').length;const yes=counts.Yes;const level=yes<=Number(assessment.rules.lowMax)?'Low':yes<=Number(assessment.rules.mediumMax)?'Moderate':'High';return {total:pressure.length,counts,yes,level,supportiveTotal:supportive.length,supportiveYes};}
-function renderResults(){document.getElementById('lowMax').value=assessment.rules.lowMax;document.getElementById('mediumMax').value=assessment.rules.mediumMax;document.getElementById('overallLevel').value=assessment.overallLevel||'';document.getElementById('overallRationale').value=assessment.overallRationale||'';const stats=domains.map(d=>({domain:d,...getDomainStats(d)}));const names={money:'Pressure on money',time:'Pressure on time',engagement:'Pressure on attention/engagement'};document.getElementById('resultsSummary').innerHTML=`<div class="notice warning"><strong>Interpretation caution</strong><p>These Low / Moderate / High labels are provisional counts of identified pressure indicators, not validated risk levels. Wellbeing supportive measures are shown separately and do not reduce or cancel pressure indicators.</p></div><div class="result-grid">${stats.map(s=>`<div class="result-card"><div class="domain">${names[s.domain]}</div><div class="count">${s.yes}<span style="font-size:13px;color:#718078;font-weight:500"> / ${s.total}</span></div><span class="level ${s.level.toLowerCase()}">${s.level} · provisional</span><p class="muted">${s.counts.Unclear} unclear</p><p class="muted">Supportive measures present: ${s.supportiveYes}/${s.supportiveTotal}</p></div>`).join('')}</div><div class="panel"><div class="panel-heading"><div><h3>Response overview</h3><p>Counts are descriptive. Supportive measures are reported separately.</p></div></div><table class="summary-table"><thead><tr><th>Category</th><th>Yes</th><th>No</th><th>N/A</th><th>Unclear</th><th>Not assessed</th><th>Supportive yes</th><th>Indicator profile</th></tr></thead><tbody>${stats.map(s=>`<tr><td>${names[s.domain]}</td><td>${s.counts.Yes}</td><td>${s.counts.No}</td><td>${s.counts['N/A']}</td><td>${s.counts.Unclear}</td><td>${s.counts['Not assessed']}</td><td>${s.supportiveYes}/${s.supportiveTotal}</td><td><span class="level ${s.level.toLowerCase()}">${s.level}</span></td></tr>`).join('')}</tbody></table></div><div class="panel"><div class="panel-heading"><div><h3>Identified pressure indicators and evidence</h3><p>Items coded Yes or Unclear.</p></div></div>${questionBank.filter(q=>q.kind!=='supportive'&&['Yes','Unclear'].includes(assessment.answers[q.id]?.status)).map(q=>`<p><strong>${escapeHtml(q.id)} · ${escapeHtml(q.title)}</strong> <span class="muted">(${escapeHtml(assessment.answers[q.id].status)})</span><br><span class="muted">${escapeHtml(assessment.answers[q.id].explanation||'No explanation recorded.')}</span><br><span class="muted">Evidence: ${escapeHtml(assessment.answers[q.id].evidence||'Not recorded')}</span></p>`).join('')||'<p class="muted">No pressure indicators coded Yes or Unclear.</p>'}</div><div class="panel"><div class="panel-heading"><div><h3>Wellbeing supportive measures</h3><p>Supportive measures coded Yes.</p></div></div>${questionBank.filter(q=>q.kind==='supportive'&&assessment.answers[q.id]?.status==='Yes').map(q=>`<p><strong>${escapeHtml(q.id)} · ${escapeHtml(q.title)}</strong><br><span class="muted">${escapeHtml(assessment.answers[q.id].explanation||'No additional explanation recorded.')}</span></p>`).join('')||'<p class="muted">No wellbeing supportive measures coded Yes.</p>'}</div>`;}
+function getDomainStats(d){const qs=questionBank.filter(q=>q.domain===d),pressure=qs.filter(q=>q.kind!=='supportive'),supportive=qs.filter(q=>q.kind==='supportive');const counts=Object.fromEntries(STATUS.map(s=>[s,0]));pressure.forEach(q=>{const s=assessment.answers[q.id]?.status;if(s)counts[s]++;});const supportiveYes=supportive.filter(q=>assessment.answers[q.id]?.status==='Yes').length;const yes=counts.Yes;const answered=counts.Yes+counts.No+counts.Unclear;counts['Not assessed']=Math.max(0,pressure.length-answered);return {total:pressure.length,counts,yes,level:'Descriptive profile',supportiveTotal:supportive.length,supportiveYes};}
+function renderResults(){
+ assessment.contextEvaluations=assessment.contextEvaluations||{};
+ document.getElementById('overallLevel').value=assessment.overallLevel||'';
+ document.getElementById('overallRationale').value=assessment.overallRationale||'';
+ const stats=domains.map(d=>({domain:d,...getDomainStats(d)}));
+ const names={money:'Pressure on money',time:'Pressure on time',engagement:'Pressure on engagement'};
+ const yesTotal=questionBank.filter(q=>q.kind!=='supportive'&&assessment.answers[q.id]?.status==='Yes').length;
+ const totalPressureItems=questionBank.filter(q=>q.kind!=='supportive').length;
+ const unclearTotal=questionBank.filter(q=>q.kind!=='supportive'&&assessment.answers[q.id]?.status==='Unclear').length;
+ const profile=stats.map(s=>{const pct=s.total?Math.round(s.yes/s.total*100):0;return {...s,pct};});
+ const supportiveItems=questionBank.filter(q=>q.kind==='supportive');
+ const supportiveYes=supportiveItems.filter(q=>assessment.answers[q.id]?.status==='Yes');
+ const supportiveUnclear=supportiveItems.filter(q=>assessment.answers[q.id]?.status==='Unclear');
+ const supportiveNo=supportiveItems.filter(q=>assessment.answers[q.id]?.status==='No');
+ const supportivePct=supportiveItems.length?Math.round(supportiveYes.length/supportiveItems.length*100):0;
+ const supportiveCards=supportiveYes.map(q=>`<article class="supportive-result-card"><div class="supportive-card-top"><span class="supportive-check">✓</span><span class="supportive-id">${escapeHtml(q.id)}</span><span class="supportive-status">Identified</span></div><strong>${escapeHtml(q.title)}</strong>${assessment.answers[q.id]?.explanation?`<p>${escapeHtml(assessment.answers[q.id].explanation)}</p>`:''}</article>`).join('');
+ const responseColors={'Yes':'#5b9878','No':'#c96f6f','Unclear':'#dfa34f','Not assessed':'#aeb8c2'};
+ const overallResponseCounts=['Yes','No','Unclear','Not assessed'].reduce((acc,label)=>{acc[label]=stats.reduce((sum,s)=>sum+(s.counts[label]||0),0);return acc;},{});
+ const overallResponseTotal=Object.values(overallResponseCounts).reduce((sum,n)=>sum+n,0);
+ const overallLabels=['Yes','No','Unclear','Not assessed'];
+ let overallCursor=0;
+ const overallSlices=overallLabels.map(label=>{const start=overallCursor;overallCursor+=overallResponseTotal?overallResponseCounts[label]/overallResponseTotal*100:0;return `${responseColors[label]} ${start}% ${overallCursor}%`;});
+ const overallGradient=overallResponseTotal?`conic-gradient(${overallSlices.join(',')})`:'#e8ecef';
+ const overallLegend=overallLabels.map(label=>`<div class="pie-legend-item"><span class="pie-swatch" style="background:${responseColors[label]}"></span><span>${label}</span><strong>${overallResponseTotal?Math.round(overallResponseCounts[label]/overallResponseTotal*100):0}%</strong><small>(${overallResponseCounts[label]})</small></div>`).join('');
+ const overallPie=`<article class="response-pie-card overall-response-pie"><h4>All three categories combined</h4><div class="response-pie-content"><div class="response-pie" style="background:${overallGradient}" role="img" aria-label="Combined response distribution across money, time and engagement"></div><div class="pie-legend">${overallLegend}</div></div><p class="pie-total">${overallResponseTotal} pressure checklist items</p></article>`;
+ const pieCards=profile.map(s=>{
+  const labels=['Yes','No','Unclear','Not assessed'];
+  const values=labels.map(label=>s.counts[label]||0);
+  const total=values.reduce((a,b)=>a+b,0);
+  let cursor=0;
+  const slices=labels.map((label,i)=>{const start=cursor;cursor+=total?values[i]/total*100:0;return `${responseColors[label]} ${start}% ${cursor}%`;});
+  const gradient=total?`conic-gradient(${slices.join(',')})`:'#e8ecef';
+  const legend=labels.map((label,i)=>`<div class="pie-legend-item"><span class="pie-swatch" style="background:${responseColors[label]}"></span><span>${label}</span><strong>${total?Math.round(values[i]/total*100):0}%</strong><small>(${values[i]})</small></div>`).join('');
+  return `<article class="response-pie-card"><h4>${names[s.domain]}</h4><div class="response-pie-content"><div class="response-pie" style="background:${gradient}" role="img" aria-label="${names[s.domain]} response distribution"></div><div class="pie-legend">${legend}</div></div><p class="pie-total">${total} checklist items</p></article>`;
+ }).join('');
+ const barRows=profile.map(s=>`<div class="profile-bar-row"><div class="profile-bar-label"><strong>${names[s.domain]}</strong><span>${s.yes} of ${s.total} indicators identified (${s.pct}%)</span></div><div class="profile-bar-track" role="img" aria-label="${names[s.domain]}: ${s.pct}% identified"><div class="profile-bar-fill" style="width:${s.pct}%"></div></div><div class="profile-bar-meta">${s.counts.Unclear} unclear · ${s.supportiveYes}/${s.supportiveTotal} supportive measures identified</div></div>`).join('');
+ const contextGroups=domains.map(d=>{
+  const c=assessment.contextEvaluations[d]||{};
+  return `<article class="context-card"><div class="context-title"><strong>${names[d]}</strong><span class="muted">${stats.find(s=>s.domain===d).yes} indicators identified</span></div>
+  <div class="context-fields">
+   <label>Potential concern <select data-context="${d}" data-field="concern"><option value="">Not assessed</option><option ${c.concern==='Low'?'selected':''}>Low</option><option ${c.concern==='Moderate'?'selected':''}>Moderate</option><option ${c.concern==='High'?'selected':''}>High</option><option ${c.concern==='Unclear'?'selected':''}>Unclear</option></select></label>
+   <label>Frequency / exposure <select data-context="${d}" data-field="frequency"><option value="">Not assessed</option><option ${c.frequency==='Occasional'?'selected':''}>Occasional</option><option ${c.frequency==='Frequent'?'selected':''}>Frequent</option><option ${c.frequency==='Continuous'?'selected':''}>Continuous</option><option ${c.frequency==='Unclear'?'selected':''}>Unclear</option></select></label>
+   <label>Player control / ability to disengage <select data-context="${d}" data-field="control"><option value="">Not assessed</option><option ${c.control==='Easy'?'selected':''}>Easy</option><option ${c.control==='Somewhat limited'?'selected':''}>Somewhat limited</option><option ${c.control==='Difficult'?'selected':''}>Difficult</option><option ${c.control==='Unclear'?'selected':''}>Unclear</option></select></label>
+   <label>Safeguards <select data-context="${d}" data-field="safeguards"><option value="">Not assessed</option><option ${c.safeguards==='Available and accessible'?'selected':''}>Available and accessible</option><option ${c.safeguards==='Available but difficult to find/use'?'selected':''}>Available but difficult to find/use</option><option ${c.safeguards==='Not identified'?'selected':''}>Not identified</option><option ${c.safeguards==='Unclear'?'selected':''}>Unclear</option></select></label>
+   <label class="wide">Conclusion<textarea rows="2" data-context="${d}" data-field="conclusion" placeholder="Summarise the potential implications for player well-being in this dimension.">${escapeHtml(c.conclusion||'')}</textarea></label>
+  </div></article>`;
+ }).join('');
+ document.getElementById('resultsSummary').innerHTML=`
+ <div class="result-grid">
+  <div class="result-card"><div class="domain">Pressure indicators identified</div><div class="count">${yesTotal}/${totalPressureItems}</div><p class="muted">Checklist items coded Yes out of all pressure indicators assessed (wellbeing supportive measures excluded)</p></div>
+  <div class="result-card"><div class="domain">Unclear responses</div><div class="count">${unclearTotal}</div><p class="muted">Require more information or follow-up</p><button class="button secondary small" id="reviewUnclear" type="button" ${unclearTotal===0?"disabled":""}>Review</button></div>
+  <div class="result-card"><div class="domain">Wellbeing supportive measures</div><div class="count">${stats.reduce((n,s)=>n+s.supportiveYes,0)}</div><p class="muted">Identified separately from pressure indicators</p><button class="button secondary small" id="viewSupportiveMeasures" type="button">Review</button></div>
+ </div>
+ <div class="panel"><div class="panel-heading"><div><h3>Response overview</h3><p>Pie charts show the percentage of Yes, No, Unclear and Not assessed responses for each pressure category. Supportive measures are reported separately and do not cancel out pressure indicators.</p></div></div>
+ <div class="response-pies">${pieCards}</div>
+ <div class="response-overview-layout"><div class="response-table-wrap"><table class="summary-table"><thead><tr><th>Dimension</th><th>Yes</th><th>No</th><th>Unclear</th><th>Not assessed</th><th>Supportive yes</th></tr></thead><tbody>${stats.map(s=>`<tr><td>${names[s.domain]}</td><td>${s.counts.Yes}</td><td>${s.counts.No}</td><td>${s.counts.Unclear}</td><td>${s.counts['Not assessed']}</td><td>${s.supportiveYes}/${s.supportiveTotal}</td></tr>`).join('')}</tbody></table></div>${overallPie}</div></div>
+ <div class="panel"><div class="panel-heading"><div><h3>Contextual evaluation</h3><p>Complete one short evaluation for each pressure dimension. Consider how the identified elements work together in this game; their presence does not automatically mean they are harmful.</p></div></div>
+ <div class="notice"><strong>Consider the context</strong><p>Assess potential concern, frequency, player control and safeguards. Use the conclusion to explain what this may mean for player well-being.</p></div>
+ ${contextGroups}</div>
+ <dialog id="supportiveMeasuresDialog" class="supportive-dialog"><div class="dialog-head"><div><h3>Wellbeing supportive measures</h3><p class="muted">Supportive features are shown separately from pressure indicators. Their presence does not automatically mean that all players are protected from pressure.</p></div><button class="icon-button" id="closeSupportiveMeasures" type="button" aria-label="Close">✕</button></div>
+ <div class="supportive-overview"><div class="supportive-total"><span class="supportive-total-number">${supportiveYes.length}</span><span class="supportive-total-label">of ${supportiveItems.length} measures identified</span></div><div class="supportive-progress-area"><div class="supportive-progress-track"><div class="supportive-progress-fill" style="width:${supportivePct}%"></div></div><div class="supportive-progress-caption">${supportivePct}% identified · ${supportiveNo.length} not identified · ${supportiveUnclear.length} unclear</div></div></div>
+ <div class="supportive-results-grid">${supportiveCards||'<p class="muted">No wellbeing supportive measures were coded Yes.</p>'}</div><div class="supportive-dialog-footer"><button class="button secondary" id="doneSupportiveMeasures" type="button">Close</button></div></dialog>`;
+ const reviewButton=document.getElementById('reviewUnclear');if(reviewButton)reviewButton.addEventListener('click',openUnclearReview);
+ const supportiveDialog=document.getElementById('supportiveMeasuresDialog');
+ const viewSupportive=document.getElementById('viewSupportiveMeasures');
+ const closeSupportive=document.getElementById('closeSupportiveMeasures');
+ const doneSupportive=document.getElementById('doneSupportiveMeasures');
+ if(viewSupportive&&supportiveDialog)viewSupportive.addEventListener('click',()=>supportiveDialog.showModal());
+ if(closeSupportive&&supportiveDialog)closeSupportive.addEventListener('click',()=>supportiveDialog.close());
+ if(doneSupportive&&supportiveDialog)doneSupportive.addEventListener('click',()=>supportiveDialog.close());
+ if(supportiveDialog)supportiveDialog.addEventListener('click',event=>{if(event.target===supportiveDialog)supportiveDialog.close();});
+ document.querySelectorAll('[data-context]').forEach(el=>el.addEventListener('change',saveContextField));
+ document.querySelectorAll('[data-context][data-field="conclusion"]').forEach(el=>el.addEventListener('input',saveContextField));
+}
+function saveContextField(event){const el=event.currentTarget;const qid=el.dataset.context,field=el.dataset.field;assessment.contextEvaluations=assessment.contextEvaluations||{};assessment.contextEvaluations[qid]=assessment.contextEvaluations[qid]||{};assessment.contextEvaluations[qid][field]=el.value;persist();}
+
+function getComparisonStats(a,domain){
+ const qs=questionBank.filter(q=>q.domain===domain);
+ const pressure=qs.filter(q=>q.kind!=='supportive');
+ const supportive=qs.filter(q=>q.kind==='supportive');
+ const counts={'Yes':0,'No':0,'Unclear':0,'Not assessed':0};
+ pressure.forEach(q=>{const status=a.answers?.[q.id]?.status;if(status&&counts[status]!==undefined)counts[status]++;else counts['Not assessed']++;});
+ return {counts,total:pressure.length,yes:counts.Yes,supportiveYes:supportive.filter(q=>a.answers?.[q.id]?.status==='Yes').length,supportiveTotal:supportive.length};
+}
+function renderComparison(){
+ const all=loadAll();
+ const selectA=document.getElementById('compareGameA'),selectB=document.getElementById('compareGameB');
+ const previousA=selectA.value,previousB=selectB.value;
+ const optionHtml='<option value="">Select an assessment...</option>'+all.map(a=>`<option value="${escapeHtml(a.id)}">${escapeHtml(a.game?.title||'Untitled assessment')} — ${new Date(a.updatedAt||a.createdAt).toLocaleDateString()}</option>`).join('');
+ selectA.innerHTML=optionHtml;selectB.innerHTML=optionHtml;
+ if(all.some(a=>a.id===previousA))selectA.value=previousA;
+ if(all.some(a=>a.id===previousB))selectB.value=previousB;
+ const render=()=>renderComparisonResults(loadAll());
+ selectA.onchange=render;selectB.onchange=render;
+ render();
+}
+function renderComparisonResults(all){
+ const idA=document.getElementById('compareGameA').value,idB=document.getElementById('compareGameB').value;
+ const host=document.getElementById('comparisonResults');
+ if(!idA||!idB){host.innerHTML='<div class="panel empty">Select two saved assessments to see their comparison.</div>';return;}
+ if(idA===idB){host.innerHTML='<div class="notice warning">Please select two different assessments to compare.</div>';return;}
+ const a=all.find(x=>x.id===idA),b=all.find(x=>x.id===idB);
+ if(!a||!b){host.innerHTML='<div class="panel empty">One of the selected assessments is no longer available. Please select again.</div>';return;}
+ const names={money:'Money',time:'Time',engagement:'Engagement'};
+ const gameColors={a:'#3b82f6',b:'#f59e0b'};
+ const responseColors={'Yes':'#4f956b','No':'#c65b5b','Unclear':'#e39a35','Not assessed':'#c8cfd5'};
+ const domainsCompare=domains.map(d=>({domain:d,label:names[d],a:getComparisonStats(a,d),b:getComparisonStats(b,d)}));
+ const totalA=questionBank.filter(q=>q.kind!=='supportive').length,totalYesA=questionBank.filter(q=>q.kind!=='supportive'&&a.answers?.[q.id]?.status==='Yes').length;
+ const totalB=questionBank.filter(q=>q.kind!=='supportive').length,totalYesB=questionBank.filter(q=>q.kind!=='supportive'&&b.answers?.[q.id]?.status==='Yes').length;
+ const pct=(n,total)=>total?Math.round(n/total*100):0;
+
+ // Radar chart compares the proportion of pressure indicators coded Yes in each dimension.
+ const cx=210,cy=178,r=112;
+ const angles=[-90,30,150];
+ const point=(value,index)=>{const rad=angles[index]*Math.PI/180,rr=r*value/100;return [cx+rr*Math.cos(rad),cy+rr*Math.sin(rad)];};
+ const polygon=(values)=>values.map((v,i)=>point(v,i).map(n=>n.toFixed(1)).join(',')).join(' ');
+ const radarA=domainsCompare.map(d=>pct(d.a.yes,d.a.total));
+ const radarB=domainsCompare.map(d=>pct(d.b.yes,d.b.total));
+ const axisLabels=[['Money',cx,cy-r-22],['Time',cx+r+38,cy+r*.58],['Engagement',cx-r-48,cy+r*.58]];
+ const gridLevels=[25,50,75,100].map(level=>`<polygon points="${polygon([level,level,level])}" fill="none" stroke="#dfe5e9" stroke-width="1"/>`).join('');
+ const axisLines=angles.map(a0=>{const rad=a0*Math.PI/180;return `<line x1="${cx}" y1="${cy}" x2="${(cx+r*Math.cos(rad)).toFixed(1)}" y2="${(cy+r*Math.sin(rad)).toFixed(1)}" stroke="#cbd4da" stroke-width="1.2"/>`;}).join('');
+ const radarSvg=`<svg viewBox="0 0 420 360" role="img" aria-label="Radar chart comparing percentage of Yes responses in money, time and engagement for both games">
+  ${gridLevels}${axisLines}
+  <polygon points="${polygon(radarA)}" fill="${gameColors.a}" fill-opacity=".18" stroke="${gameColors.a}" stroke-width="3"/>
+  <polygon points="${polygon(radarB)}" fill="${gameColors.b}" fill-opacity=".18" stroke="${gameColors.b}" stroke-width="3"/>
+  ${radarA.map((v,i)=>{const [x,y]=point(v,i);return `<circle cx="${x}" cy="${y}" r="4.5" fill="${gameColors.a}" stroke="#fff" stroke-width="1.5"/>`;}).join('')}
+  ${radarB.map((v,i)=>{const [x,y]=point(v,i);return `<circle cx="${x}" cy="${y}" r="4.5" fill="${gameColors.b}" stroke="#fff" stroke-width="1.5"/>`;}).join('')}
+  <text x="${cx}" y="${cy-r-29}" text-anchor="middle" font-size="13" font-weight="700" fill="#42515c">Money</text>
+  <text x="${cx+r+20}" y="${cy+r*.58}" text-anchor="start" font-size="13" font-weight="700" fill="#42515c">Time</text>
+  <text x="${cx-r-22}" y="${cy+r*.58}" text-anchor="end" font-size="13" font-weight="700" fill="#42515c">Engagement</text>
+  ${[25,50,75,100].map(v=>`<text x="${cx+5}" y="${cy-r*v/100+4}" font-size="9" fill="#89959d">${v}</text>`).join('')}
+ </svg>`;
+ const distributionRows=domainsCompare.map(d=>`<section class="compare-category-block"><h4 class="compare-category-title">${d.label}</h4><table class="compare-data-table"><thead><tr><th>Response</th><th><div class="compare-game-heading"><span class="game-a">GAME A</span><strong>${escapeHtml(a.game?.title||'Untitled assessment')}</strong><small>Number of indicators and share of category</small></div></th><th><div class="compare-game-heading"><span class="game-b">GAME B</span><strong>${escapeHtml(b.game?.title||'Untitled assessment')}</strong><small>Number of indicators and share of category</small></div></th></tr></thead><tbody>${['Yes','No','Unclear','Not assessed'].map(status=>`<tr><td><span class="compare-response-label"><i style="background:${responseColors[status]}"></i>${status}</span></td><td><span class="compare-response-value">${d.a.counts[status]}</span><span class="compare-percent">${pct(d.a.counts[status],d.a.total)}% of indicators</span></td><td><span class="compare-response-value">${d.b.counts[status]}</span><span class="compare-percent">${pct(d.b.counts[status],d.b.total)}% of indicators</span></td></tr>`).join('')}</tbody></table></section>`).join('');
+ host.innerHTML=`
+ <div class="panel"><div class="panel-heading"><div><h3>Assessment summary</h3><p>Descriptive comparison of checklist responses. A higher number of Yes responses does not automatically indicate greater harm.</p></div></div>
+ <div class="compare-summary-grid">
+  <article class="compare-summary-card"><span class="compare-game-tag game-a">A</span><h4>${escapeHtml(a.game?.title||'Untitled assessment')}</h4><div class="compare-big-number">${totalYesA}/${totalA}</div><p>Pressure indicators coded Yes</p><div class="compare-classification">Overall classification: <strong>${escapeHtml(a.overallLevel||'Not assigned')}</strong></div></article>
+  <article class="compare-summary-card"><span class="compare-game-tag game-b">B</span><h4>${escapeHtml(b.game?.title||'Untitled assessment')}</h4><div class="compare-big-number">${totalYesB}/${totalB}</div><p>Pressure indicators coded Yes</p><div class="compare-classification">Overall classification: <strong>${escapeHtml(b.overallLevel||'Not assigned')}</strong></div></article>
+ </div></div>
+ <div class="panel"><div class="panel-heading"><div><h3>Comparison across the three dimensions</h3><p>The radar chart compares the percentage of pressure indicators coded Yes in each category. A larger value means more checklist indicators were identified, not necessarily greater harm.</p></div></div>
+ <div class="radar-layout"><div class="radar-chart">${radarSvg}<div class="radar-legend"><span><i class="radar-dot" style="background:${gameColors.a}"></i>${escapeHtml(a.game?.title||'Game A')}</span><span><i class="radar-dot" style="background:${gameColors.b}"></i>${escapeHtml(b.game?.title||'Game B')}</span></div></div>
+ <div class="radar-values"><h4>Identified indicators</h4>${domainsCompare.map(d=>`<div class="radar-value-row"><strong>${d.label}</strong><div><span class="radar-value-a">${pct(d.a.yes,d.a.total)}%</span><small>Game A · ${d.a.yes}/${d.a.total}</small></div><div><span class="radar-value-b">${pct(d.b.yes,d.b.total)}%</span><small>Game B · ${d.b.yes}/${d.b.total}</small></div></div>`).join('')}</div></div></div>
+ <div class="panel"><div class="panel-heading"><div><h3>Detailed response comparison</h3><p>Each category is shown separately. The number is the count of checklist indicators; the percentage is that count as a share of all indicators in the category.</p></div></div>
+ <div class="compare-table-wrap">${distributionRows}</div>
+ <div class="compare-supportive"><h4>Wellbeing supportive measures</h4><p>These are shown separately because they are supportive features, not pressure indicators. They are not included in the Yes/No response percentages above.</p><div class="compare-supportive-grid"><div class="compare-supportive-card"><strong>GAME A · ${escapeHtml(a.game?.title||'Untitled assessment')}</strong><span>${domainsCompare.reduce((n,d)=>n+d.a.supportiveYes,0)}</span><small>of ${domainsCompare.reduce((n,d)=>n+d.a.supportiveTotal,0)} measures identified</small></div><div class="compare-supportive-card"><strong>GAME B · ${escapeHtml(b.game?.title||'Untitled assessment')}</strong><span>${domainsCompare.reduce((n,d)=>n+d.b.supportiveYes,0)}</span><small>of ${domainsCompare.reduce((n,d)=>n+d.b.supportiveTotal,0)} measures identified</small></div></div></div></div>
+ <div class="panel"><div class="panel-heading"><div><h3>Overall interpretation</h3><p>Researcher-provided classifications and rationales from each assessment.</p></div></div>
+ <div class="compare-rationales"><article><h4>${escapeHtml(a.game?.title||'Game A')}</h4><p><strong>${escapeHtml(a.overallLevel||'Not assigned')}</strong></p><p>${escapeHtml(a.overallRationale||'No rationale recorded.')}</p></article><article><h4>${escapeHtml(b.game?.title||'Game B')}</h4><p><strong>${escapeHtml(b.overallLevel||'Not assigned')}</strong></p><p>${escapeHtml(b.overallRationale||'No rationale recorded.')}</p></article></div>
+ <p class="muted compare-note">Wellbeing supportive measures are displayed separately and are not deducted from pressure indicators. This comparison is descriptive and does not determine which game is safer or more harmful.</p></div>`;
+}
+let unclearReviewQueue=[];
+let unclearReviewIndex=0;
+function openUnclearReview(){
+ unclearReviewQueue=questionBank.filter(q=>q.kind!=='supportive'&&assessment.answers[q.id]?.status==='Unclear');
+ unclearReviewIndex=0;
+ if(!unclearReviewQueue.length)return;
+ showUnclearReviewItem();
+ document.getElementById('unclearReviewDialog').showModal();
+}
+function showUnclearReviewItem(){
+ const q=unclearReviewQueue[unclearReviewIndex];
+ if(!q){
+  document.getElementById('unclearReviewDialog').close();
+  persist();
+  updateCounts();
+  renderResults();
+  return;
+ }
+ const domainNames={money:'Pressure on money',time:'Pressure on time',engagement:'Pressure on engagement'};
+ const answer=assessment.answers[q.id]||{};
+ document.getElementById('unclearReviewProgress').textContent=`Question ${unclearReviewIndex+1} of ${unclearReviewQueue.length}`;
+ document.getElementById('unclearReviewProgressFill').style.width=`${((unclearReviewIndex+1)/unclearReviewQueue.length)*100}%`;
+ document.getElementById('unclearReviewQuestion').innerHTML=`<div class="review-domain">${escapeHtml(domainNames[q.domain]||q.domain||'Game element')}</div><div class="review-id">${escapeHtml(q.id)}</div><h4>${escapeHtml(q.title)}</h4>${q.definition?`<p>${escapeHtml(q.definition)}</p>`:''}${answer.explanation?`<div class="review-existing-info"><strong>Previously recorded information</strong><p>${escapeHtml(answer.explanation)}</p></div>`:''}`;
+ document.querySelectorAll('[data-review-status]').forEach(btn=>btn.onclick=()=>{
+  const status=btn.dataset.reviewStatus;
+  assessment.answers[q.id]=assessment.answers[q.id]||{};
+  assessment.answers[q.id].status=status;
+  persist();
+  updateCounts();
+  unclearReviewIndex++;
+  showUnclearReviewItem();
+ });
+}
 function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 const gameFields={gameTitle:'title',platforms:'platforms',developer:'publisher',multipleModes:'multipleModes',modes:'modes',interactionPatterns:'interactionPatterns',gameDescription:'description',gameRules:'rules',liveOps:'liveOps',modeAssessed:'modeAssessed',assessmentDate:'assessmentDate',researcher:'researcher',gameNotes:'notes'};
 function readGame(){Object.entries(gameFields).forEach(([id,key])=>assessment.game[key]=document.getElementById(id).value);const words=(assessment.game.description||'').trim().split(/\s+/).filter(Boolean);if(words.length>100){document.getElementById('wordCount').textContent=`${words.length} / 100 words — please shorten`;document.getElementById('wordCount').style.color='#a23d43';}else{document.getElementById('wordCount').textContent=`${words.length} / 100 words`;document.getElementById('wordCount').style.color='';}persist();updateCurrent();}
@@ -717,13 +1044,83 @@ function readWordCountOnly(){const words=(document.getElementById('gameDescripti
 function download(name,data,type){const blob=new Blob([data],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function fileBase(){return (assessment.game.title||'gamecheck-assessment').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'gamecheck-assessment';}
 async function exportJSON(){const portable=JSON.parse(JSON.stringify(assessment));for(const [qid,answer] of Object.entries(portable.answers||{})){for(const ref of answer.screenshots||[]){const record=await getEvidence(ref.id);if(record)ref.dataUrl=await evidenceAsDataURL(record.blob);}}const payload={schemaVersion:3,sourceInstrument:'Game-check Coding Tool 2.0, Appendix 3 (2025)',exportedAt:new Date().toISOString(),assessment:portable,questionBank,classificationNote:'Count-based Low/Moderate/High indicator profile is illustrative and not a validated risk classification. Wellbeing supportive measures are reported separately.'};download(fileBase()+'.json',JSON.stringify(payload,null,2),'application/json');}
-function exportCSV(){const rows=[['game_title','domain','group','criterion_id','criterion','item_type','response','explanation','evidence','researcher_notes']];questionBank.forEach(q=>{const a=assessment.answers[q.id]||{};rows.push([assessment.game.title||'',q.domain,q.group,q.id,q.title,q.kind,a.status||'Not answered',a.explanation||'',a.evidence||'',a.notes||'']);});const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');download(fileBase()+'.csv',csv,'text/csv;charset=utf-8');}
+
+function crc32(bytes){
+ let crc=-1;
+ for(let i=0;i<bytes.length;i++){crc^=bytes[i];for(let j=0;j<8;j++)crc=(crc>>>1)^((crc&1)?0xEDB88320:0);}
+ return (crc^-1)>>>0;
+}
+function zipStored(files){
+ const enc=new TextEncoder(),localParts=[],centralParts=[];let offset=0;
+ const u16=n=>new Uint8Array([n&255,(n>>>8)&255]);
+ const u32=n=>new Uint8Array([n&255,(n>>>8)&255,(n>>>16)&255,(n>>>24)&255]);
+ const join=parts=>{const total=parts.reduce((s,p)=>s+p.length,0),out=new Uint8Array(total);let p=0;for(const part of parts){out.set(part,p);p+=part.length;}return out;};
+ for(const file of files){
+  const name=enc.encode(file.name),data=file.data instanceof Uint8Array?file.data:new Uint8Array(file.data);
+  const crc=crc32(data);
+  const local=join([u32(0x04034b50),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0),name,data]);
+  localParts.push(local);
+  const central=join([u32(0x02014b50),u16(20),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(data.length),u32(data.length),u16(name.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(offset),name]);
+  centralParts.push(central);offset+=local.length;
+ }
+ const centralDir=join(centralParts),end=join([u32(0x06054b50),u16(0),u16(0),u16(files.length),u16(files.length),u32(centralDir.length),u32(offset),u16(0)]);
+ return new Blob([...localParts,centralDir,end],{type:'application/zip'});
+}
+async function exportPackage(){
+ const portable=JSON.parse(JSON.stringify(assessment)),files=[];
+ for(const [qid,answer] of Object.entries(portable.answers||{})){
+  for(const [kind,refs] of [['screenshots',answer.screenshots||[]],['videos',answer.videos||[]]]){
+   for(let i=0;i<refs.length;i++){
+    const ref=refs[i],record=await getEvidence(ref.id);if(!record)continue;
+    const safeName=(ref.name||`${kind}-${i+1}`).replace(/[\\/:*?"<>|]+/g,'_');
+    const ext=kind==='videos'?(ref.type==='video/webm'||/\\.webm$/i.test(safeName)?'webm':'mp4'):'jpg';
+    const path=`evidence/${qid}/${kind}/${String(i+1).padStart(2,'0')}-${safeName.replace(/\\.[^.]+$/,'')}.${ext}`;
+    files.push({name:path,data:new Uint8Array(await record.blob.arrayBuffer())});
+    ref.file=path;delete ref.dataUrl;
+   }
+  }
+ }
+ const payload={schemaVersion:4,sourceInstrument:'Game-check Coding Tool 2.0, Appendix 3 (2025)',exportedAt:new Date().toISOString(),assessment:portable,questionBank,classificationNote:'Count-based Low/Moderate/High indicator profile is illustrative and not a validated risk classification.',readme:'This ZIP contains assessment.json and the associated screenshot and screen-recording evidence files. Evidence files are referenced by their file paths in the assessment JSON. CSV export remains text-only.'};
+ files.unshift({name:'assessment.json',data:new TextEncoder().encode(JSON.stringify(payload,null,2))});
+ const blob=zipStored(files),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=fileBase()+'-evidence.zip';a.click();setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+
+function exportCSV(){
+ const rows=[[
+  'Game title','Category','Checklist group','Question ID','Checklist question','Item type',
+  'Response','Explanation','Evidence reference','Researcher notes',
+  'Money - potential concern','Money - frequency/exposure','Money - player control','Money - safeguards','Money - conclusion',
+  'Time - potential concern','Time - frequency/exposure','Time - player control','Time - safeguards','Time - conclusion',
+  'Engagement - potential concern','Engagement - frequency/exposure','Engagement - player control','Engagement - safeguards','Engagement - conclusion',
+  'Spending limit - amount','Spending limit - where found','Spending limit - suitability reflection'
+ ]];
+ questionBank.forEach(q=>{
+  const a=assessment.answers[q.id]||{};
+  rows.push([
+   assessment.game.title||'',q.domain,q.group,q.id,q.title,q.kind,a.status||'Not answered',
+   a.explanation||'',a.evidence||'',a.notes||'',
+   assessment.contextEvaluations?.money?.concern||'',assessment.contextEvaluations?.money?.frequency||'',
+   assessment.contextEvaluations?.money?.control||'',assessment.contextEvaluations?.money?.safeguards||'',
+   assessment.contextEvaluations?.money?.conclusion||'',
+   assessment.contextEvaluations?.time?.concern||'',assessment.contextEvaluations?.time?.frequency||'',
+   assessment.contextEvaluations?.time?.control||'',assessment.contextEvaluations?.time?.safeguards||'',
+   assessment.contextEvaluations?.time?.conclusion||'',
+   assessment.contextEvaluations?.engagement?.concern||'',assessment.contextEvaluations?.engagement?.frequency||'',
+   assessment.contextEvaluations?.engagement?.control||'',assessment.contextEvaluations?.engagement?.safeguards||'',
+   assessment.contextEvaluations?.engagement?.conclusion||'',
+   a.capValue||'',a.capLocation||'',a.capReflection||''
+  ]);
+ });
+ // Semicolon separators make the file open into separate columns in common Dutch/European Excel settings.
+ const csv=rows.map(row=>row.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(';')).join('\r\n');
+ download(fileBase()+'.csv','\uFEFF'+csv,'text/csv;charset=utf-8');
+}
 function saveRules(){const l=Number(document.getElementById('lowMax').value),m=Number(document.getElementById('mediumMax').value);if(!Number.isInteger(l)||!Number.isInteger(m)||l<0||m<=l){alert('Enter whole numbers. Moderate maximum must be higher than Low maximum.');return;}assessment.rules={lowMax:l,mediumMax:m};persist();renderResults();}
 function saveOverall(){assessment.overallLevel=document.getElementById('overallLevel').value;assessment.overallRationale=document.getElementById('overallRationale').value;persist();alert('Assessment saved locally in this browser.');}
 function newAssessment(){if(!confirm('Start a new assessment? The current assessment is saved automatically in this browser.'))return;readGame();assessment=freshAssessment();fillGame();domains.forEach(renderQuestions);updateCounts();setView('game');persist();}
 function showSaved(){const all=loadAll(),host=document.getElementById('savedList');host.innerHTML='';if(!all.length)host.innerHTML='<p class="empty">No saved assessments yet.</p>';all.forEach(a=>{const row=document.createElement('div');row.className='saved-item';const info=document.createElement('div'),strong=document.createElement('strong'),small=document.createElement('small');strong.textContent=a.game?.title||'Untitled assessment';small.textContent=new Date(a.updatedAt).toLocaleString();info.append(strong,small);const actions=document.createElement('div'),open=document.createElement('button'),del=document.createElement('button');open.className='button small secondary';open.textContent='Open';open.onclick=()=>{assessment=a;fillGame();domains.forEach(renderQuestions);updateCounts();document.getElementById('savedDialog').close();setView('game');};del.className='button small secondary';del.textContent='Delete';del.onclick=()=>{if(confirm('Delete this saved assessment?')){removeAssessmentEvidence(a).then(()=>{localStorage.setItem(STORAGE_KEY,JSON.stringify(loadAll().filter(x=>x.id!==a.id)));showSaved();});}};actions.append(open,del);row.append(info,actions);host.append(row);});document.getElementById('savedDialog').showModal();}
-document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{readGame();setView(b.dataset.go);}));Object.keys(gameFields).forEach(id=>document.getElementById(id).addEventListener('change',readGame));document.getElementById('gameDescription').addEventListener('input',readWordCountOnly);
-document.getElementById('helpBtn').onclick=()=>document.getElementById('helpDialog').showModal();document.getElementById('closeHelp').onclick=()=>document.getElementById('helpDialog').close();document.getElementById('okHelp').onclick=()=>document.getElementById('helpDialog').close();document.getElementById('newBtn').onclick=newAssessment;document.getElementById('savedBtn').onclick=showSaved;document.getElementById('closeSaved').onclick=()=>document.getElementById('savedDialog').close();document.getElementById('applyRules').onclick=saveRules;document.getElementById('saveAssessment').onclick=saveOverall;document.getElementById('exportJson').onclick=exportJSON;document.getElementById('exportCsv').onclick=exportCSV;document.getElementById('printBtn').onclick=()=>window.print();
+document.getElementById('compareGamesBtn').onclick=()=>{readGame();assessment.overallLevel=document.getElementById('overallLevel')?.value||assessment.overallLevel||'';assessment.overallRationale=document.getElementById('overallRationale')?.value||assessment.overallRationale||'';persist();setView('compare');};document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setView(b.dataset.view)));document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{readGame();setView(b.dataset.go);}));Object.keys(gameFields).forEach(id=>document.getElementById(id).addEventListener('change',readGame));document.getElementById('gameDescription').addEventListener('input',readWordCountOnly);
+document.getElementById('closeUnclearReview').onclick=()=>document.getElementById('unclearReviewDialog').close();document.getElementById('helpBtn').onclick=()=>document.getElementById('helpDialog').showModal();document.getElementById('closeHelp').onclick=()=>document.getElementById('helpDialog').close();document.getElementById('okHelp').onclick=()=>document.getElementById('helpDialog').close();document.getElementById('newBtn').onclick=newAssessment;document.getElementById('savedBtn').onclick=showSaved;document.getElementById('closeSaved').onclick=()=>document.getElementById('savedDialog').close();document.getElementById('saveAssessment').onclick=saveOverall;document.getElementById('exportJson').onclick=exportJSON;document.getElementById('exportPackage').onclick=exportPackage;document.getElementById('exportCsv').onclick=exportCSV;document.getElementById('printBtn').onclick=()=>window.print();
 domains.forEach(renderQuestions);fillGame();updateCounts();persist();
 
 
